@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drum Kit</title>
+</head>
+
+<body>
+    <header>
+        <h1>Drum Kit</h1>
+    </header>
+    <main>
+        <div class="keys">
+            <div data-key="keyq" class="key" aria-label="Tecla Q - Som de bateria">Q</div>
+            <div data-key="keyw" class="key" aria-label="Tecla W - Som de bateria">W</div>
+            <div data-key="keye" class="key" aria-label="Tecla E - Som de bateria">E</div>
+
+            <div data-key="keya" class="key" aria-label="Tecla A - Som de bateria">A</div>
+            <div data-key="keys" class="key" aria-label="Tecla S - Som de bateria">S</div>
+            <div data-key="keyd" class="key" aria-label="Tecla D - Som de bateria">D</div>
+
+            <div data-key="keyz" class="key" aria-label="Tecla Z - Som de bateria">Z</div>
+            <div data-key="keyx" class="key" aria-label="Tecla X - Som de bateria">X</div>
+            <div data-key="keyc" class="key" aria-label="Tecla C - Som de bateria">C</div>
+        </div>
+        <form class="composer" aria-label="Compositor de batidas">
+            <input type="text" id="input" placeholder="Faça uma composição..." required />
+            <button id="playBtn" type="button" aria-label="Tocar composição">Tocar</button>
+        </form>
+    </main>
+    <footer>
+        <span>Criado por</span>
+        <a href="https://github.com/kevinluann" target="_blank">Kevin Luan</a>
+    </footer>
+    <div class="audio-container">
+        <audio id="s_keyq" src="sounds/keyq.wav" preload="auto"></audio>
+        <audio id="s_keyw" src="sounds/keyw.wav" preload="auto"></audio>
+        <audio id="s_keye" src="sounds/keye.wav" preload="auto"></audio>
+        <audio id="s_keya" src="sounds/keya.wav" preload="auto"></audio>
+        <audio id="s_keys" src="sounds/keys.wav" preload="auto"></audio>
+        <audio id="s_keyd" src="sounds/keyd.wav" preload="auto"></audio>
+        <audio id="s_keyz" src="sounds/keyz.wav" preload="auto"></audio>
+        <audio id="s_keyx" src="sounds/keyx.wav" preload="auto"></audio>
+        <audio id="s_keyc" src="sounds/keyc.wav" preload="auto"></audio>
+    </div>
+</body>
+
+</html>

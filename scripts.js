@@ -1,3 +1,5 @@
+const playButton = document.querySelector('#playBtn')
+
 function playSound(sound) {
   try {
     const audioElement = document.querySelector(`#s_${sound}`)
@@ -20,6 +22,27 @@ function playSound(sound) {
   }
 }
 
+function playComposition(songArray) {
+  let awaitTime = 0
+  
+  for (let songItem of songArray) {
+    setTimeout(() => {
+      playSound(`key${songItem}`)
+    }, awaitTime);
+    
+    awaitTime += 250
+  }
+}
+
 document.body.addEventListener('keyup', (event) => {
   playSound(event.code.toLowerCase());
+})
+
+playButton.addEventListener('click', () => {
+  const song = document.querySelector('#input').value
+
+  if (song !== '') {
+    const songArray = song.split('')
+    playComposition(songArray)
+  }
 })

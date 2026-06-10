@@ -58,5 +58,5 @@ keysContainer.addEventListener('click', (event) => {
 
 input.addEventListener('input', () => {
   const regex = /[^QWEASDZXC\s]/gi
-  input.value = input.value.replace(regex, '').replace(/^\s+/, '');
+  input.value = input.value.replace(regex, '').replace(/^\s+/, '').replace(/\s{3,}/g, '').toLowerCase()
 })

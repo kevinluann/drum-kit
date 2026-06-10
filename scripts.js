@@ -1,4 +1,5 @@
 const playButton = document.querySelector('#playBtn')
+const keysContainer = document.querySelector('.keys')
 
 function playSound(sound) {
   try {
@@ -44,5 +45,11 @@ playButton.addEventListener('click', () => {
   if (song !== '') {
     const songArray = song.split('')
     playComposition(songArray)
+  }
+})
+
+keysContainer.addEventListener('click', (event) => {
+  if (event.target.classList.contains('key')) {
+    playSound(event.target.dataset.key)
   }
 })

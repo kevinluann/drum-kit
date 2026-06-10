@@ -1,5 +1,6 @@
 const playButton = document.querySelector('#playBtn')
 const keysContainer = document.querySelector('.keys')
+const input = document.querySelector('#input')
 
 function playSound(sound) {
   try {
@@ -40,7 +41,7 @@ document.body.addEventListener('keyup', (event) => {
 })
 
 playButton.addEventListener('click', () => {
-  const song = document.querySelector('#input').value
+  const song = input.value
 
   if (song !== '') {
     const songArray = song.split('')
@@ -52,4 +53,9 @@ keysContainer.addEventListener('click', (event) => {
   if (event.target.classList.contains('key')) {
     playSound(event.target.dataset.key)
   }
+})
+
+input.addEventListener('input', () => {
+  const regex = /[^QWEASDZXC\s]/gi
+  input.value = input.value.replace(regex, '').replace(/^\s+/, '');
 })

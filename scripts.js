@@ -6,9 +6,7 @@ function playSound(sound) {
     if (audioElement) {
       audioElement.currentTime = 0
       audioElement.play()
-    }
 
-    if(keyElement) {
       keyElement.classList.add('playing')
 
       setTimeout(() => {

@@ -1,6 +1,6 @@
-const playButton = document.querySelector('#playBtn')
 const keysContainer = document.querySelector('.keys')
 const input = document.querySelector('#input')
+const form = document.querySelector('.composer')
 
 function playSound(sound) {
   try {
@@ -40,7 +40,8 @@ document.body.addEventListener('keyup', (event) => {
   playSound(event.code.toLowerCase());
 })
 
-playButton.addEventListener('click', () => {
+form.addEventListener('submit', (event) => {
+  event.preventDefault()
   const song = input.value
 
   if (song !== '') {

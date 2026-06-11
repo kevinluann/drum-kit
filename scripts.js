@@ -1,6 +1,9 @@
 const keysContainer = document.querySelector('.keys')
 const input = document.querySelector('#input')
 const form = document.querySelector('.composer')
+const playButton = document.querySelector('#playBtn')
+
+let isPlaying = false
 
 function playSound(sound) {
   try {
@@ -26,6 +29,9 @@ function playSound(sound) {
 
 function playComposition(songArray) {
   let awaitTime = 0
+
+  isPlaying = true
+  playButton.setAttribute('disabled', 'true')
   
   for (let songItem of songArray) {
     setTimeout(() => {
@@ -34,6 +40,11 @@ function playComposition(songArray) {
     
     awaitTime += 250
   }
+
+  setTimeout(() => {
+    isPlaying = false
+    playButton.removeAttribute('disabled')
+  }, awaitTime);
 }
 
 document.body.addEventListener('keyup', (event) => {
@@ -44,7 +55,7 @@ form.addEventListener('submit', (event) => {
   event.preventDefault()
   const song = input.value
 
-  if (song !== '') {
+  if (song !== '' && !isPlaying) {
     const songArray = song.split('')
     playComposition(songArray)
   }

@@ -3,6 +3,7 @@ const input = document.querySelector('#input')
 const form = document.querySelector('.composer')
 const playButton = document.querySelector('#playBtn')
 const stopButton = document.querySelector('#stopBtn')
+const volumeControl = document.querySelector('#volume')
 
 let isPlaying = false
 let timers = []
@@ -67,6 +68,18 @@ function stopComposition() {
   stopButton.setAttribute('disabled', 'true')
 }
 
+function setVolume() {
+  const volume = volumeControl.value / 100
+  const audioElements = document.querySelectorAll('audio')
+  const volumeValue = document.querySelector('.volume-value')
+
+  for (let audio of audioElements) {
+    audio.volume = volume
+  }
+
+  volumeValue.textContent = volumeControl.value
+}
+
 document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
 
 form.addEventListener('submit', (event) => {
@@ -105,3 +118,5 @@ stopButton.addEventListener('click', () => {
   
   stopComposition()
 })
+
+volumeControl.addEventListener('input', () => setVolume())

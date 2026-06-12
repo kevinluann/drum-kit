@@ -225,6 +225,11 @@ main {
          background: var(--surface-color);
       }
 
+      &:hover {
+         border-color: var(--accent-primary);
+         background: var(--surface-color);
+      }
+
       &:disabled {
          opacity: 0.5;
          cursor: not-allowed;

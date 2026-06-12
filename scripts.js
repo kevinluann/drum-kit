@@ -67,9 +67,7 @@ function stopComposition() {
   stopButton.setAttribute('disabled', 'true')
 }
 
-document.body.addEventListener('keyup', (event) => {
-  playSound(event.code.toLowerCase());
-})
+document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
 
 form.addEventListener('submit', (event) => {
   event.preventDefault()

@@ -29,6 +29,13 @@
             <div data-key="keyx" class="key" aria-label="Tecla X - Som de bateria">X</div>
             <div data-key="keyc" class="key" aria-label="Tecla C - Som de bateria">C</div>
         </div>
+        <div class="volume-control">
+            <span class="volume-label">VOL</span>
+            <div class="volume-slider-wrapper">
+                <input type="range" id="volume" min="0" max="100" step="1" value="100" aria-label="Controle de volume">
+            </div>
+            <span class="volume-value" id="volumeValue">100</span>
+        </div>
         <form class="composer" aria-label="Compositor de batidas">
             <input type="text" id="input" placeholder="Faça uma composição..." required />
             <button id="playBtn" type="submit" aria-label="Tocar composição">Tocar</button>

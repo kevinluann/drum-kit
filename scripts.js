@@ -90,4 +90,18 @@ input.addEventListener('input', () => {
   input.value = input.value.replace(regex, '').replace(/^\s+/, '').replace(/\s{3,}/g, '').toLowerCase()
 })
 
-stopButton.addEventListener('click', () => stopComposition())
+playButton.addEventListener('click', () => {
+  playButton.classList.add('clicked')
+  setTimeout(() => {
+    playButton.classList.remove('clicked')
+  }, 100)
+})
+
+stopButton.addEventListener('click', () => {
+  stopButton.classList.add('clicked')
+  setTimeout(() => {
+    stopButton.classList.remove('clicked')
+  }, 100)
+  
+  stopComposition()
+})

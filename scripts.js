@@ -2,8 +2,10 @@ const keysContainer = document.querySelector('.keys')
 const input = document.querySelector('#input')
 const form = document.querySelector('.composer')
 const playButton = document.querySelector('#playBtn')
+const stopButton = document.querySelector('#stopBtn')
 
 let isPlaying = false
+let timers = []
 
 function playSound(sound) {
   try {
@@ -31,20 +33,38 @@ function playComposition(songArray) {
   let awaitTime = 0
 
   isPlaying = true
+  stopButton.removeAttribute('disabled')
   playButton.setAttribute('disabled', 'true')
   
   for (let songItem of songArray) {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       playSound(`key${songItem}`)
     }, awaitTime);
+    
+    timers.push(timer)
     
     awaitTime += 250
   }
 
-  setTimeout(() => {
+  const finalTimer = setTimeout(() => {
     isPlaying = false
+    stopButton.setAttribute('disabled', 'true')
     playButton.removeAttribute('disabled')
   }, awaitTime);
+
+  timers.push(finalTimer)
+}
+
+function stopComposition() {
+  for (let timerID of timers) {
+    clearTimeout(timerID)
+  }
+
+  timers = []
+  isPlaying = false
+
+  playButton.removeAttribute('disabled')
+  stopButton.setAttribute('disabled', 'true')
 }
 
 document.body.addEventListener('keyup', (event) => {
@@ -71,3 +91,5 @@ input.addEventListener('input', () => {
   const regex = /[^QWEASDZXC\s]/gi
   input.value = input.value.replace(regex, '').replace(/^\s+/, '').replace(/\s{3,}/g, '').toLowerCase()
 })
+
+stopButton.addEventListener('click', () => stopComposition())

@@ -36,6 +36,13 @@
             </div>
             <span class="volume-value" id="volumeValue">100</span>
         </div>
+        <div class="bpm-control">
+            <span class="bpm-label">BPM</span>
+            <div class="bpm-slider-wrapper">
+                <input type="range" id="bpm" min="60" max="240" step="5" value="240" aria-label="Controle de BPM">
+            </div>
+            <span class="bpm-value" id="bpmValue">240</span>
+        </div>
         <form class="composer" aria-label="Compositor de batidas">
             <input type="text" id="input" placeholder="Faça uma composição..." required />
             <button id="playBtn" type="submit" aria-label="Tocar composição">Tocar</button>

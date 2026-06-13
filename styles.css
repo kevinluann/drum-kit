@@ -512,7 +512,7 @@ main {
    background: var(--bg-tertiary);
    border: 2px solid var(--border-light);
    border-radius: 4px;
-   transition: all 0.2s ease;
+   transition: all 0.15s ease;
    box-shadow:
       0 4px 16px rgba(0, 0, 0, 0.4),
       inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -537,8 +537,8 @@ main {
    border-color: var(--accent-primary);
    color: white;
    box-shadow:
-      0 6px 20px rgba(255, 107, 0, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      0 4px 12px rgba(255, 107, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 footer {

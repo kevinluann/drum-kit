@@ -5,10 +5,12 @@ const playButton = document.querySelector('#playBtn')
 const stopButton = document.querySelector('#stopBtn')
 const volumeControl = document.querySelector('#volume')
 const loopToggle = document.querySelector('#loopToggle')
+const bpmControl = document.querySelector('#bpm')
 
 let isPlaying = false
 let isLooping = false
 let timers = []
+let bpm = bpmControl.value
 
 function playSound(sound) {
   try {
@@ -34,6 +36,7 @@ function playSound(sound) {
 
 function playComposition(songArray) {
   let awaitTime = 0
+  let interval = 60000 / bpm
 
   isPlaying = true
   stopButton.removeAttribute('disabled')
@@ -46,7 +49,7 @@ function playComposition(songArray) {
     
     timers.push(timer)
     
-    awaitTime += 250
+    awaitTime += interval
   }
 
   const finalTimer = setTimeout(() => {
@@ -84,6 +87,13 @@ function setVolume() {
   }
 
   volumeValue.textContent = volumeControl.value
+}
+
+function setBpm() {
+  const bpmValue = document.querySelector('#bpmValue')
+  bpm = bpmControl.value
+
+  bpmValue.textContent = bpm
 }
 
 document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
@@ -131,3 +141,5 @@ loopToggle.addEventListener('click', () => {
   isLooping = !isLooping
   loopToggle.classList.toggle('active', isLooping)
 })
+
+bpmControl.addEventListener('input', () => setBpm())

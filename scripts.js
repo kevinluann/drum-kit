@@ -4,8 +4,10 @@ const form = document.querySelector('.composer')
 const playButton = document.querySelector('#playBtn')
 const stopButton = document.querySelector('#stopBtn')
 const volumeControl = document.querySelector('#volume')
+const loopToggle = document.querySelector('#loopToggle')
 
 let isPlaying = false
+let isLooping = false
 let timers = []
 
 function playSound(sound) {
@@ -51,7 +53,11 @@ function playComposition(songArray) {
     isPlaying = false
     stopButton.setAttribute('disabled', 'true')
     playButton.removeAttribute('disabled')
-  }, awaitTime);
+
+    if (isLooping) {
+      playComposition(songArray)
+    }
+  }, awaitTime)
 
   timers.push(finalTimer)
 }
@@ -120,3 +126,8 @@ stopButton.addEventListener('click', () => {
 })
 
 volumeControl.addEventListener('input', () => setVolume())
+
+loopToggle.addEventListener('click', () => {
+  isLooping = !isLooping
+  loopToggle.classList.toggle('active', isLooping)
+})

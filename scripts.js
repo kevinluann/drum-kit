@@ -41,6 +41,7 @@ function playComposition(songArray) {
   isPlaying = true
   stopButton.removeAttribute('disabled')
   playButton.setAttribute('disabled', 'true')
+  bpmControl.setAttribute('disabled', 'true')
   
   for (let songItem of songArray) {
     const timer = setTimeout(() => {
@@ -56,6 +57,7 @@ function playComposition(songArray) {
     isPlaying = false
     stopButton.setAttribute('disabled', 'true')
     playButton.removeAttribute('disabled')
+    bpmControl.removeAttribute('disabled')
 
     if (isLooping) {
       playComposition(songArray)
@@ -75,6 +77,7 @@ function stopComposition() {
 
   playButton.removeAttribute('disabled')
   stopButton.setAttribute('disabled', 'true')
+  bpmControl.removeAttribute('disabled')
 }
 
 function setVolume() {

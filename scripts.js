@@ -120,6 +120,7 @@ function setBpm() {
 }
 
 function startMetronome() {
+  const metronomeAudio = document.querySelector('#s_metronome')
   let interval = 60000 / bpm
 
   if (metronomeTimer) {
@@ -127,8 +128,9 @@ function startMetronome() {
   }
   
   metronomeTimer = setInterval(() => {
-    playSound(`keys`)
-  }, interval);
+    metronomeAudio.currentTime = 0
+    metronomeAudio.play()
+  }, interval)
 }
 
 function stopMetronome() {

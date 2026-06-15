@@ -6,11 +6,14 @@ const stopButton = document.querySelector('#stopBtn')
 const volumeControl = document.querySelector('#volume')
 const loopToggle = document.querySelector('#loopToggle')
 const bpmControl = document.querySelector('#bpm')
+const metronomeToggle = document.querySelector('#metronomeToggle')
 
 let isPlaying = false
 let isLooping = false
 let timers = []
 let bpm = bpmControl.value
+let isMetronomeEnabled = false
+let metronomeTimer = null
 
 function playSound(sound) {
   try {
@@ -42,6 +45,10 @@ function playComposition(songArray) {
   stopButton.removeAttribute('disabled')
   playButton.setAttribute('disabled', 'true')
   bpmControl.setAttribute('disabled', 'true')
+
+  if (isMetronomeEnabled) {
+    startMetronome()
+  }
   
   for (let songItem of songArray) {
     const timer = setTimeout(() => {
@@ -59,6 +66,10 @@ function playComposition(songArray) {
     playButton.removeAttribute('disabled')
     bpmControl.removeAttribute('disabled')
 
+    if (isMetronomeEnabled) {
+      stopMetronome()
+    }
+
     if (isLooping) {
       playComposition(songArray)
     }
@@ -70,6 +81,10 @@ function playComposition(songArray) {
 function stopComposition() {
   for (let timerID of timers) {
     clearTimeout(timerID)
+  }
+
+  if (isMetronomeEnabled) {
+    stopMetronome()
   }
 
   timers = []
@@ -97,6 +112,30 @@ function setBpm() {
   bpm = bpmControl.value
 
   bpmValue.textContent = bpm
+
+  if (isMetronomeEnabled && isPlaying) {
+    stopMetronome()
+    startMetronome()
+  }
+}
+
+function startMetronome() {
+  let interval = 60000 / bpm
+
+  if (metronomeTimer) {
+    stopMetronome()
+  }
+  
+  metronomeTimer = setInterval(() => {
+    playSound(`keys`)
+  }, interval);
+}
+
+function stopMetronome() {
+  if (metronomeTimer) {
+    clearInterval(metronomeTimer)
+    metronomeTimer = null
+  }
 }
 
 document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
@@ -146,3 +185,14 @@ loopToggle.addEventListener('click', () => {
 })
 
 bpmControl.addEventListener('input', () => setBpm())
+
+metronomeToggle.addEventListener('click', () => {
+  isMetronomeEnabled = !isMetronomeEnabled
+  metronomeToggle.classList.toggle('active', isMetronomeEnabled)
+
+  if (isMetronomeEnabled && isPlaying) {
+    startMetronome()
+  } else if (!isMetronomeEnabled) {
+    stopMetronome()
+  }
+})

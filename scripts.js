@@ -1,3 +1,5 @@
+// === Seletores DOM ===
+
 const keysContainer = document.querySelector('.keys')
 const input = document.querySelector('#input')
 const form = document.querySelector('.composer')
@@ -8,12 +10,16 @@ const loopToggle = document.querySelector('#loopToggle')
 const bpmControl = document.querySelector('#bpm')
 const metronomeToggle = document.querySelector('#metronomeToggle')
 
+// === Variáveis de estado ===
+
 let isPlaying = false
 let isLooping = false
 let timers = []
 let bpm = bpmControl.value
 let isMetronomeEnabled = false
 let metronomeTimer = null
+
+// === Funções ===
 
 function playSound(sound) {
   try {
@@ -139,6 +145,8 @@ function stopMetronome() {
     metronomeTimer = null
   }
 }
+
+// === Event listeners ===
 
 document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
 

@@ -41,7 +41,16 @@
             <div class="bpm-slider-wrapper">
                 <input type="range" id="bpm" min="60" max="400" step="5" value="240" aria-label="Controle de BPM">
             </div>
-            <span class="bpm-value" id="bpmValue">240</span>
+            <span class="bpm-value clickable" id="bpmValue" role="button" tabindex="0" aria-label="Abrir presets de BPM">240</span>
+            <div class="bpm-dropdown" id="bpmDropdown">
+                <button class="bpm-preset" data-bpm="60" type="button">60</button>
+                <button class="bpm-preset" data-bpm="90" type="button">90</button>
+                <button class="bpm-preset" data-bpm="120" type="button">120</button>
+                <button class="bpm-preset" data-bpm="140" type="button">140</button>
+                <button class="bpm-preset" data-bpm="160" type="button">160</button>
+                <button class="bpm-preset" data-bpm="180" type="button">180</button>
+                <button class="bpm-preset" data-bpm="200" type="button">200</button>
+            </div>
         </div>
         <button class="metronome-toggle" id="metronomeToggle" type="button" aria-label="Ativar metrônomo">Metr</button>
         <form class="composer" aria-label="Compositor de batidas">

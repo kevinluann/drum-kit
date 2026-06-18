@@ -53,6 +53,7 @@ function playComposition(songArray) {
   stopButton.removeAttribute('disabled')
   playButton.setAttribute('disabled', 'true')
   bpmControl.setAttribute('disabled', 'true')
+  bpmValue.classList.add('disabled')
 
   if (isMetronomeEnabled) {
     startMetronome()
@@ -73,6 +74,7 @@ function playComposition(songArray) {
     stopButton.setAttribute('disabled', 'true')
     playButton.removeAttribute('disabled')
     bpmControl.removeAttribute('disabled')
+    bpmValue.classList.remove('disabled')
 
     if (isMetronomeEnabled) {
       stopMetronome()
@@ -101,6 +103,7 @@ function stopComposition() {
   playButton.removeAttribute('disabled')
   stopButton.setAttribute('disabled', 'true')
   bpmControl.removeAttribute('disabled')
+  bpmValue.classList.remove('disabled')
 }
 
 function setVolume() {

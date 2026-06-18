@@ -479,6 +479,12 @@ main {
    background: var(--bg-tertiary);
 }
 
+.bpm-value.clickable.disabled {
+   cursor: not-allowed;
+   opacity: 0.4;
+   pointer-events: none;
+}
+
 .bpm-dropdown {
    visibility: hidden;
    position: absolute;

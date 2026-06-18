@@ -9,6 +9,8 @@ const volumeControl = document.querySelector('#volume')
 const loopToggle = document.querySelector('#loopToggle')
 const bpmControl = document.querySelector('#bpm')
 const metronomeToggle = document.querySelector('#metronomeToggle')
+const bpmValue = document.querySelector('#bpmValue')
+const bpmDropdown = document.querySelector('.bpm-dropdown')
 
 // === Variáveis de estado ===
 
@@ -114,7 +116,6 @@ function setVolume() {
 }
 
 function setBpm() {
-  const bpmValue = document.querySelector('#bpmValue')
   bpm = bpmControl.value
 
   bpmValue.textContent = bpm
@@ -144,6 +145,14 @@ function stopMetronome() {
     clearInterval(metronomeTimer)
     metronomeTimer = null
   }
+}
+
+function toggleBpmDropdown() {
+  bpmDropdown.classList.toggle('open')
+}
+
+function closeBpmDropdown() {
+  bpmDropdown.classList.remove('open')
 }
 
 // === Event listeners ===
@@ -204,5 +213,28 @@ metronomeToggle.addEventListener('click', () => {
     startMetronome()
   } else if (!isMetronomeEnabled) {
     stopMetronome()
+  }
+})
+
+bpmValue.addEventListener('click', () => toggleBpmDropdown())
+
+bpmValue.addEventListener('keydown', (event) => {
+  if (event.code === 'Enter' || event.code === 'Space') {
+    event.preventDefault()
+    toggleBpmDropdown()
+  }
+})
+
+bpmDropdown.addEventListener('click', (event) => {
+  if (event.target.classList.contains('bpm-preset')) {
+    bpmControl.value = event.target.dataset.bpm
+    setBpm()
+    closeBpmDropdown()
+  }
+})
+
+document.addEventListener('click', (event) => {
+  if (!bpmDropdown.contains(event.target) && !bpmValue.contains(event.target)) {
+    closeBpmDropdown()
   }
 })

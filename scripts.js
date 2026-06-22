@@ -11,6 +11,8 @@ const bpmControl = document.querySelector('#bpm')
 const metronomeToggle = document.querySelector('#metronomeToggle')
 const bpmValue = document.querySelector('#bpmValue')
 const bpmDropdown = document.querySelector('.bpm-dropdown')
+const timelineNotes = document.querySelector('.timeline-notes')
+const timelineEmpty = document.querySelector('.timeline-empty')
 
 // === Variáveis de estado ===
 
@@ -59,9 +61,10 @@ function playComposition(songArray) {
     startMetronome()
   }
   
-  for (let songItem of songArray) {
+  for (let [index, songItem] of songArray.entries()) {
     const timer = setTimeout(() => {
       playSound(`key${songItem}`)
+      highlightNote(index)
     }, awaitTime);
     
     timers.push(timer)
@@ -89,6 +92,8 @@ function playComposition(songArray) {
 }
 
 function stopComposition() {
+  clearTimelineHighlights()
+
   for (let timerID of timers) {
     clearTimeout(timerID)
   }
@@ -158,6 +163,46 @@ function closeBpmDropdown() {
   bpmDropdown.classList.remove('open')
 }
 
+function updateTimeline(composition) {
+  timelineNotes.innerHTML = ''
+  
+  if (!composition.trim()) {
+    timelineEmpty.setAttribute('style', 'display: flex')
+    return
+  }
+  
+  timelineEmpty.setAttribute('style', 'display: none')
+
+  const validNotes = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
+  const notes = composition.toUpperCase().split('').filter(note => validNotes.includes(note))
+
+  for (let note of notes) {
+    const noteElement = document.createElement('div')
+    noteElement.setAttribute('class', 'timeline-note')
+    noteElement.textContent = note
+    noteElement.setAttribute('data-note', note)
+    timelineNotes.appendChild(noteElement)
+  }
+}
+
+function highlightNote(index) {
+  const notes = document.querySelectorAll('.timeline-note')
+
+  clearTimelineHighlights()
+
+  if (notes[index]) {
+    notes[index].classList.add('active')
+  }
+}
+
+function clearTimelineHighlights() {
+  const notes = document.querySelectorAll('.timeline-note')
+  
+  for (let note of notes) {
+    note.classList.remove('active')
+  }
+}
+
 // === Event listeners ===
 
 document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
@@ -178,9 +223,11 @@ keysContainer.addEventListener('click', (event) => {
   }
 })
 
-input.addEventListener('input', () => {
+input.addEventListener('input', (event) => {
   const regex = /[^QWEASDZXC\s]/gi
   input.value = input.value.replace(regex, '').replace(/^\s+/, '').replace(/\s{3,}/g, '').toLowerCase()
+  
+  updateTimeline(event.target.value)
 })
 
 playButton.addEventListener('click', () => {

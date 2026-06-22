@@ -55,6 +55,14 @@
         </div>
         <button class="metronome-toggle" id="metronomeToggle" type="button" aria-label="Ativar metrônomo">Metr</button>
         <form class="composer" aria-label="Compositor de batidas">
+            <div class="composer-timeline">
+                <div class="timeline-track">
+                    <div class="timeline-empty">
+                        <span class="timeline-empty-text">—</span>
+                    </div>
+                    <div class="timeline-notes"></div>
+                </div>
+            </div>
             <input type="text" id="input" placeholder="Faça uma composição..." required />
             <button id="playBtn" type="submit" aria-label="Tocar composição">Tocar</button>
             <button id="stopBtn" type="button" aria-label="Parar composição" disabled>Parar</button>

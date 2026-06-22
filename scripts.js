@@ -13,6 +13,7 @@ const bpmValue = document.querySelector('#bpmValue')
 const bpmDropdown = document.querySelector('.bpm-dropdown')
 const timelineNotes = document.querySelector('.timeline-notes')
 const timelineEmpty = document.querySelector('.timeline-empty')
+const timelineTrack = document.querySelector('.timeline-track')
 
 // === Variáveis de estado ===
 
@@ -286,5 +287,12 @@ bpmDropdown.addEventListener('click', (event) => {
 document.addEventListener('click', (event) => {
   if (!bpmDropdown.contains(event.target) && !bpmValue.contains(event.target)) {
     closeBpmDropdown()
+  }
+})
+
+timelineTrack.addEventListener('wheel', (event) => {
+  if (event.deltaY !== 0) {
+    event.preventDefault()
+    timelineTrack.scrollLeft += event.deltaY
   }
 })

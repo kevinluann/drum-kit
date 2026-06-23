@@ -80,6 +80,9 @@ function playComposition(songArray) {
     bpmControl.removeAttribute('disabled')
     bpmValue.classList.remove('disabled')
 
+    clearTimelineHighlights()
+    scrollToTimelineStart()
+
     if (isMetronomeEnabled) {
       stopMetronome()
     }
@@ -94,6 +97,7 @@ function playComposition(songArray) {
 
 function stopComposition() {
   clearTimelineHighlights()
+  scrollToTimelineStart()
 
   for (let timerID of timers) {
     clearTimeout(timerID)
@@ -200,6 +204,12 @@ function highlightNote(index) {
   if (notes[index]) {
     notes[index].classList.add('active')
   }
+
+  notes[index].scrollIntoView({
+    behavior: 'smooth',
+    inline: 'center',
+    block: 'nearest'
+  })
 }
 
 function clearTimelineHighlights() {
@@ -208,6 +218,13 @@ function clearTimelineHighlights() {
   for (let note of notes) {
     note.classList.remove('active')
   }
+}
+
+function scrollToTimelineStart() {
+  timelineTrack.scrollTo({
+    left: 0,
+    behavior: 'smooth'
+  })
 }
 
 // === Event listeners ===

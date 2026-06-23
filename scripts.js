@@ -175,14 +175,20 @@ function updateTimeline(composition) {
   timelineEmpty.setAttribute('style', 'display: none')
 
   const validNotes = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
-  const notes = composition.toUpperCase().split('').filter(note => validNotes.includes(note))
+  const notes = composition.toUpperCase().split('')
 
   for (let note of notes) {
-    const noteElement = document.createElement('div')
-    noteElement.setAttribute('class', 'timeline-note')
-    noteElement.textContent = note
-    noteElement.setAttribute('data-note', note)
-    timelineNotes.appendChild(noteElement)
+    if (note === ' ') {
+      const spaceElement = document.createElement('div')
+      spaceElement.setAttribute('class', 'timeline-space')
+      timelineNotes.appendChild(spaceElement)
+    } else if (validNotes.includes(note)) {
+      const noteElement = document.createElement('div')
+      noteElement.setAttribute('class', 'timeline-note')
+      noteElement.textContent = note
+      noteElement.setAttribute('data-note', note)
+      timelineNotes.appendChild(noteElement)
+    }
   }
 }
 

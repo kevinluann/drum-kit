@@ -14,6 +14,12 @@ const bpmDropdown = document.querySelector('.bpm-dropdown')
 const timelineNotes = document.querySelector('.timeline-notes')
 const timelineEmpty = document.querySelector('.timeline-empty')
 const timelineTrack = document.querySelector('.timeline-track')
+const statsToggle = document.querySelector('#statsToggle')
+const statsClose = document.querySelector('#statsClose')
+const totalNotesDisplay = document.querySelector('#totalNotes')
+const totalTimeDisplay = document.querySelector('#totalTime')
+const totalCompositionsDisplay = document.querySelector('#totalCompositions')
+const resetStatsButton = document.querySelector('#resetStats')
 
 // === Variáveis de estado ===
 
@@ -23,6 +29,9 @@ let timers = []
 let bpm = bpmControl.value
 let isMetronomeEnabled = false
 let metronomeTimer = null
+let totalNotesPlayed = 0
+let totalPlayTime = 0
+let compositionsPlayed = 0
 
 // === Funções ===
 
@@ -42,6 +51,9 @@ function playSound(sound) {
       }, 100);
     }
 
+    totalNotesPlayed++
+    updateStatsDisplay()
+
   } catch (error) {
     alert('Som não encontrado.')
     console.log(error)
@@ -51,6 +63,9 @@ function playSound(sound) {
 function playComposition(songArray) {
   let awaitTime = 0
   let interval = 60000 / bpm
+  const validNotes = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c']
+  const filteredArray = songArray.filter(item => validNotes.includes(item))
+  const startTime = Date.now()
 
   isPlaying = true
   stopButton.removeAttribute('disabled')
@@ -61,9 +76,6 @@ function playComposition(songArray) {
   if (isMetronomeEnabled) {
     startMetronome()
   }
-
-  const validNotes = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c']
-  const filteredArray = songArray.filter(item => validNotes.includes(item))
 
   for (let [index, songItem] of filteredArray.entries()) {
     const timer = setTimeout(() => {
@@ -77,6 +89,11 @@ function playComposition(songArray) {
   }
 
   const finalTimer = setTimeout(() => {
+    const endTime = Date.now()
+    totalPlayTime += (endTime - startTime) / 1000
+    compositionsPlayed++
+    updateStatsDisplay()
+
     isPlaying = false
     stopButton.setAttribute('disabled', 'true')
     playButton.removeAttribute('disabled')
@@ -230,6 +247,12 @@ function scrollToTimelineStart() {
   })
 }
 
+function updateStatsDisplay() {
+  totalNotesDisplay.textContent = totalNotesPlayed
+  totalTimeDisplay.textContent = totalPlayTime + 's'
+  totalCompositionsDisplay.textContent = compositionsPlayed
+}
+
 // === Event listeners ===
 
 document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
@@ -321,4 +344,19 @@ timelineTrack.addEventListener('wheel', (event) => {
     event.preventDefault()
     timelineTrack.scrollLeft += event.deltaY
   }
+})
+
+statsToggle.addEventListener('click', () => {
+  statsPanel.classList.toggle('open')
+})
+
+statsClose.addEventListener('click', () => {
+  statsPanel.classList.remove('open')
+})
+
+resetStatsButton.addEventListener('click', () => {
+  totalNotesPlayed = 0
+  totalPlayTime = 0
+  compositionsPlayed = 0
+  updateStatsDisplay()
 })

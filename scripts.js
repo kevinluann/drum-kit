@@ -61,15 +61,18 @@ function playComposition(songArray) {
   if (isMetronomeEnabled) {
     startMetronome()
   }
-  
-  for (let [index, songItem] of songArray.entries()) {
+
+  const validNotes = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c']
+  const filteredArray = songArray.filter(item => validNotes.includes(item))
+
+  for (let [index, songItem] of filteredArray.entries()) {
     const timer = setTimeout(() => {
       playSound(`key${songItem}`)
       highlightNote(index)
     }, awaitTime);
-    
+
     timers.push(timer)
-    
+
     awaitTime += interval
   }
 

@@ -69,6 +69,34 @@
         </form>
         <button class="loop-toggle" id="loopToggle" type="button" aria-label="Ativar loop">Loop</button>
     </main>
+    <button class="stats-toggle" id="statsToggle" type="button" aria-label="Abrir estatísticas">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+            <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+    </button>
+    <div class="stats-panel" id="statsPanel">
+        <div class="stats-header">
+            <h3>Estatísticas</h3>
+            <button class="stats-close" id="statsClose" type="button" aria-label="Fechar estatísticas">✕</button>
+        </div>
+        <div class="stats-content">
+            <div class="stats-item">
+                <span class="stats-label">Total de notas:</span>
+                <span class="stats-value" id="totalNotes">0</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-label">Tempo de reprodução:</span>
+                <span class="stats-value" id="totalTime">0s</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-label">Composições tocadas:</span>
+                <span class="stats-value" id="totalCompositions">0</span>
+            </div>
+            <button id="resetStats" type="button" class="reset-stats-btn">Resetar</button>
+        </div>
+    </div>
     <footer>
         <span>Criado por</span>
         <a href="https://github.com/kevinluann" target="_blank">Kevin Luan</a>

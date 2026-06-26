@@ -61,7 +61,7 @@ function playSound(sound) {
     if (isRecording) {
       const validNotes = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c']
       const noteLetter = sound.replace('key', '')
-      
+
       if (validNotes.includes(noteLetter)) {
         recordedNotes.push(noteLetter)
       }
@@ -262,7 +262,7 @@ function scrollToTimelineStart() {
 
 function updateStatsDisplay() {
   totalNotesDisplay.textContent = totalNotesPlayed
-  totalTimeDisplay.textContent = totalPlayTime + 's'
+  totalTimeDisplay.textContent = Math.floor(totalPlayTime) + 's'
   totalCompositionsDisplay.textContent = compositionsPlayed
 }
 

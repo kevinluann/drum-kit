@@ -16,6 +16,7 @@ const timelineEmpty = document.querySelector('.timeline-empty')
 const timelineTrack = document.querySelector('.timeline-track')
 const statsToggle = document.querySelector('#statsToggle')
 const statsClose = document.querySelector('#statsClose')
+const statsPanel = document.querySelector('#statsPanel')
 const totalNotesDisplay = document.querySelector('#totalNotes')
 const totalTimeDisplay = document.querySelector('#totalTime')
 const totalCompositionsDisplay = document.querySelector('#totalCompositions')
@@ -348,10 +349,7 @@ timelineTrack.addEventListener('wheel', (event) => {
 
 statsToggle.addEventListener('click', () => {
   statsPanel.classList.toggle('open')
-})
-
-statsClose.addEventListener('click', () => {
-  statsPanel.classList.remove('open')
+  statsToggle.classList.toggle('open')
 })
 
 resetStatsButton.addEventListener('click', () => {

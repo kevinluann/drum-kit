@@ -1178,20 +1178,22 @@ footer {
 
 .stats-toggle {
    position: fixed;
-   top: 6rem;
-   left: 1rem;
-   background: var(--bgsecondary);
+   top: 7rem;
+   left: 0;
+   background: var(--bg-secondary);
    border: 1px solid var(--border-light);
-   border-radius: 50%;
+   border-left: none;
+   border-radius: 0 8px 8px 0;
    width: 40px;
    height: 40px;
    display: flex;
    align-items: center;
    justify-content: center;
    cursor: pointer;
-   transition: all 0.2s ease;
-   z-index: 101;
+   transition: left 0.3s ease;
+   z-index: 102;
    color: var(--text-primary);
+   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
 
    &:hover {
       background: var(--bg-tertiary);
@@ -1207,29 +1209,31 @@ footer {
       width: 20px;
       height: 20px;
    }
+
+   &.open {
+      left: 280px;
+      top: 7rem;
+   }
 }
 
 .stats-panel {
    position: fixed;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%) scale(0.9);
+   top: 6rem;
+   left: 0;
+   transform: translateX(-100%);
    background: var(--bg-secondary);
    border: 1px solid var(--border-light);
-   border-radius: 12px;
+   border-right: 1px solid var(--border-color);
+   border-radius: 0 12px 12px 0;
    padding: 0;
-   min-width: 280px;
+   width: 280px;
    max-width: 90vw;
-   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+   box-shadow: 4px 0 32px rgba(0, 0, 0, 0.6);
    z-index: 100;
-   opacity: 0;
-   visibility: hidden;
    transition: all 0.3s ease;
 
    &.open {
-      opacity: 1;
-      visibility: visible;
-      transform: translate(-50%, -50%) scale(1);
+      transform: translateX(0);
    }
 
    .stats-header {
@@ -1316,7 +1320,7 @@ footer {
    }
 
    @media (max-width: 600px) {
-      min-width: auto;
+      top: 5rem;
       width: calc(100vw - 2rem);
    }
 }

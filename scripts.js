@@ -21,6 +21,7 @@ const totalNotesDisplay = document.querySelector('#totalNotes')
 const totalTimeDisplay = document.querySelector('#totalTime')
 const totalCompositionsDisplay = document.querySelector('#totalCompositions')
 const resetStatsButton = document.querySelector('#resetStats')
+const recordToggle = document.querySelector('#recordToggle')
 
 // === Variáveis de estado ===
 
@@ -33,6 +34,8 @@ let metronomeTimer = null
 let totalNotesPlayed = 0
 let totalPlayTime = 0
 let compositionsPlayed = 0
+let isRecording = false
+let recordedNotes = []
 
 // === Funções ===
 
@@ -54,6 +57,15 @@ function playSound(sound) {
 
     totalNotesPlayed++
     updateStatsDisplay()
+
+    if (isRecording) {
+      const validNotes = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c']
+      const noteLetter = sound.replace('key', '')
+      
+      if (validNotes.includes(noteLetter)) {
+        recordedNotes.push(noteLetter)
+      }
+    }
 
   } catch (error) {
     alert('Som não encontrado.')
@@ -254,6 +266,33 @@ function updateStatsDisplay() {
   totalCompositionsDisplay.textContent = compositionsPlayed
 }
 
+function toggleRecording() {
+  isRecording = !isRecording
+
+  if (isRecording) {
+    recordedNotes = []
+
+    input.setAttribute('placeholder', 'Gravando...')
+    input.setAttribute('disabled', 'true')
+    playButton.setAttribute('disabled', 'true')
+
+    recordToggle.classList.add('recording')
+    input.value = ''
+  } else {
+    input.setAttribute('placeholder', 'Faça uma composição...')
+    input.removeAttribute('disabled')
+    playButton.removeAttribute('disabled')
+
+    recordToggle.classList.remove('recording')
+
+    if (recordedNotes.length > 0) {
+      input.value = recordedNotes.join('')
+    } else {
+      input.value = ''
+    }
+  }
+}
+
 // === Event listeners ===
 
 document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
@@ -358,3 +397,5 @@ resetStatsButton.addEventListener('click', () => {
   compositionsPlayed = 0
   updateStatsDisplay()
 })
+
+recordToggle.addEventListener('click', () => toggleRecording())

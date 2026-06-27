@@ -1270,29 +1270,56 @@ footer {
    position: fixed;
    top: 7rem;
    left: 0;
-   background: var(--bg-secondary);
-   border: 1px solid var(--border-light);
-   border-left: none;
-   border-radius: 0 8px 8px 0;
-   width: 40px;
-   height: 40px;
    display: flex;
    align-items: center;
    justify-content: center;
    cursor: pointer;
-   transition: left 0.3s ease;
-   z-index: 102;
-   color: var(--text-primary);
+   user-select: none;
+   padding: 0.75rem;
+   background: var(--bg-secondary);
+   border: 1px solid var(--border-light);
+   border-left: none;
+   border-radius: 0 8px 8px 0;
+   transition: all 0.3s ease;
    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+   width: 40px;
+   height: 40px;
+   color: var(--text-secondary);
+   z-index: 102;
+
+   &::before {
+      content: 'Estatisticas';
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%) translateX(8px);
+      margin-left: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      z-index: 102;
+   }
+
+   &:hover::before {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-50%) translateX(0);
+   }
 
    &:hover {
       background: var(--bg-tertiary);
       border-color: var(--accent-primary);
       color: var(--accent-primary);
-   }
-
-   &:active {
-      transform: scale(0.95);
    }
 
    svg {

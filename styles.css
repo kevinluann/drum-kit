@@ -1119,6 +1119,45 @@ main {
    z-index: 101;
 }
 
+.record-toggle::before {
+   content: 'Gravar composição';
+   position: absolute;
+   right: 100%;
+   top: 50%;
+   transform: translateY(-50%) translateX(-8px);
+   margin-right: 0.5rem;
+   padding: 0.5rem 0.75rem;
+   background: var(--bg-tertiary);
+   border: 1px solid var(--border-color);
+   border-radius: 4px;
+   font-size: 0.75rem;
+   font-weight: 500;
+   color: var(--text-primary);
+   white-space: nowrap;
+   opacity: 0;
+   visibility: hidden;
+   pointer-events: none;
+   transition: all 0.2s ease;
+   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+   z-index: 102;
+}
+
+.record-toggle:hover::before {
+   opacity: 1;
+   visibility: visible;
+   transform: translateY(-50%) translateX(0);
+}
+
+.record-toggle.recording::before {
+   content: 'Gravando... Clique para parar';
+   background: var(--accent-primary);
+   border-color: var(--accent-primary);
+   color: #000;
+   opacity: 1;
+   visibility: visible;
+   transform: translateY(-50%) translateX(0);
+}
+
 .record-toggle:hover {
    background: var(--bg-tertiary);
    border-color: #ff4444;

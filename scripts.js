@@ -287,8 +287,10 @@ function toggleRecording() {
 
     if (recordedNotes.length > 0) {
       input.value = recordedNotes.join('')
+      updateTimeline(input.value)
     } else {
       input.value = ''
+      updateTimeline('')
     }
   }
 }

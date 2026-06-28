@@ -1,0 +1,18 @@
+* {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+}
+
+:root {
+   --bg-primary: #0a0a0a;
+   --bg-secondary: #141414;
+   --bg-tertiary: #1a1a1a;
+   --accent-primary: #ff6b00;
+   --accent-secondary: #00ff88;
+   --text-primary: #ffffff;
+   --text-secondary: #888888;
+   --border-color: #333333;
+   --border-light: #444444;
+   --surface-color: #1f1f1f;
+}

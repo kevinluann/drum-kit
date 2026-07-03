@@ -239,6 +239,11 @@ function updateTimeline(composition) {
       noteElement.textContent = note
       noteElement.setAttribute('data-note', note)
       noteElement.setAttribute('data-index', index)
+      
+      if (noteBpms[index]) {
+        noteElement.classList.add('has-custom-bpm')
+      }
+      
       timelineNotes.appendChild(noteElement)
     }
   }

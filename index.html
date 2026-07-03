@@ -118,6 +118,16 @@
         <audio id="s_keyc" src="sounds/keyc.wav" preload="auto"></audio>
         <audio id="s_metronome" src="sounds/metronome.wav" preload="auto"></audio>
     </div>
+    <div id="noteBpmOverlay" class="note-bpm-overlay"></div>
+    <div id="noteBpmEditor" class="note-bpm-editor">
+        <h3 class="note-bpm-title">BPM da Nota</h3>
+        <input type="number" id="noteBpmInput" min="60" max="400" value="240" class="note-bpm-input" aria-label="BPM da nota">
+        <div class="note-bpm-buttons">
+            <button id="saveNoteBpm" type="button" class="note-bpm-btn note-bpm-btn--save">Salvar</button>
+            <button id="removeNoteBpm" type="button" class="note-bpm-btn note-bpm-btn--remove">Remover</button>
+            <button id="cancelNoteBpm" type="button" class="note-bpm-btn note-bpm-btn--cancel">Cancelar</button>
+        </div>
+    </div>
     <script src="scripts.js"></script>
 </body>
 

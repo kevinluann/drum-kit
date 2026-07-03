@@ -22,6 +22,12 @@ const totalTimeDisplay = document.querySelector('#totalTime')
 const totalCompositionsDisplay = document.querySelector('#totalCompositions')
 const resetStatsButton = document.querySelector('#resetStats')
 const recordToggle = document.querySelector('#recordToggle')
+const noteBpmEditor = document.querySelector('#noteBpmEditor')
+const noteBpmOverlay = document.querySelector('#noteBpmOverlay')
+const noteBpmInput = document.querySelector('#noteBpmInput')
+const saveNoteBpmButton = document.querySelector('#saveNoteBpm')
+const removeNoteBpmButton = document.querySelector('#removeNoteBpm')
+const cancelNoteBpmButton = document.querySelector('#cancelNoteBpm')
 
 // === Variáveis de estado ===
 
@@ -36,6 +42,8 @@ let totalPlayTime = 0
 let compositionsPlayed = 0
 let isRecording = false
 let recordedNotes = []
+let noteBpms = {}
+let currentNoteIndex = null
 
 // === Funções ===
 
@@ -75,7 +83,7 @@ function playSound(sound) {
 
 function playComposition(songArray) {
   let awaitTime = 0
-  let interval = 60000 / bpm
+  let defaultInterval = 60000 / bpm
   const validNotes = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c']
   const filteredArray = songArray.filter(item => validNotes.includes(item))
   const startTime = Date.now()
@@ -91,6 +99,12 @@ function playComposition(songArray) {
   }
 
   for (let [index, songItem] of filteredArray.entries()) {
+    let currentInterval = defaultInterval
+
+    if (noteBpms[index]) {
+      currentInterval = 60000 / noteBpms[index]
+    }
+
     const timer = setTimeout(() => {
       playSound(`key${songItem}`)
       highlightNote(index)
@@ -98,7 +112,7 @@ function playComposition(songArray) {
 
     timers.push(timer)
 
-    awaitTime += interval
+    awaitTime += currentInterval
   }
 
   const finalTimer = setTimeout(() => {
@@ -214,7 +228,7 @@ function updateTimeline(composition) {
   const validNotes = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
   const notes = composition.toUpperCase().split('')
 
-  for (let note of notes) {
+  for (let [index, note] of notes.entries()) {
     if (note === ' ') {
       const spaceElement = document.createElement('div')
       spaceElement.setAttribute('class', 'timeline-space')
@@ -224,6 +238,7 @@ function updateTimeline(composition) {
       noteElement.setAttribute('class', 'timeline-note')
       noteElement.textContent = note
       noteElement.setAttribute('data-note', note)
+      noteElement.setAttribute('data-index', index)
       timelineNotes.appendChild(noteElement)
     }
   }
@@ -293,6 +308,49 @@ function toggleRecording() {
       updateTimeline('')
     }
   }
+}
+
+function openBpmEditor(noteIndex) {
+  currentNoteIndex = noteIndex
+
+  if (noteBpms[noteIndex]) {
+    noteBpmInput.value = noteBpms[noteIndex]
+  } else {
+    noteBpmInput.value = bpmControl.value
+  }
+
+  noteBpmEditor.setAttribute('style', 'display: block')
+  noteBpmOverlay.setAttribute('style', 'display: block')
+}
+
+function saveNoteBpm() {
+  let bpmValue = parseInt(noteBpmInput.value)
+  
+  if (bpmValue >= 60 && bpmValue <= 400) {
+    let allNotes = document.querySelectorAll('.timeline-note')
+
+    noteBpms[currentNoteIndex] = bpmValue
+
+    allNotes[currentNoteIndex].classList.add('has-custom-bpm') 
+
+    closeBpmEditor()
+  }
+}
+
+function removeNoteBpm() {
+  let allNotes = document.querySelectorAll('.timeline-note')
+
+  delete noteBpms[currentNoteIndex]
+
+  allNotes[currentNoteIndex].classList.remove('has-custom-bpm')
+
+  closeBpmEditor()
+}
+
+function closeBpmEditor() {
+  noteBpmEditor.setAttribute('style', 'display: none')
+  noteBpmOverlay.setAttribute('style', 'display: none')
+  currentNoteIndex = null
 }
 
 // === Event listeners ===
@@ -401,3 +459,18 @@ resetStatsButton.addEventListener('click', () => {
 })
 
 recordToggle.addEventListener('click', () => toggleRecording())
+
+timelineNotes.addEventListener('click', (event) => {
+  if (event.target.classList.contains('timeline-note')) {
+    let index = parseInt(event.target.dataset.index)
+    openBpmEditor(index)
+  }
+})
+
+saveNoteBpmButton.addEventListener('click', () => saveNoteBpm())
+
+removeNoteBpmButton.addEventListener('click', () => removeNoteBpm())
+
+cancelNoteBpmButton.addEventListener('click', () => closeBpmEditor())
+
+noteBpmOverlay.addEventListener('click', () => closeBpmEditor())

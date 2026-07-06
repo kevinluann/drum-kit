@@ -514,6 +514,7 @@
    text-align: center;
    writing-mode: vertical-rl;
    text-orientation: upright;
+   z-index: 5;
 }
 
 .metronome-toggle:hover {
@@ -524,10 +525,52 @@
 .metronome-toggle.active {
    background: #00a859;
    border-color: #00a859;
+   border-bottom-left-radius: 0;
+   border-bottom-right-radius: 0;
    color: white;
    box-shadow:
       0 4px 12px rgba(0, 168, 89, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.metronome-bpm-inline {
+   display: none;
+   position: absolute;
+   left: calc(50% - 308px);
+   top: calc(50% + 334px);
+   width: 48px;
+   justify-content: center;
+}
+
+.metronome-bpm-inline.visible {
+   display: flex;
+}
+
+.metronome-bpm-inline-input {
+   width: 100%;
+   padding: 0.375rem 0;
+   background: var(--bg-secondary);
+   border: 2px solid var(--border-color);
+   border-top: none;
+   border-radius: 0 0 4px 4px;
+   color: #00a859;
+   font-size: 0.75rem;
+   font-weight: 600;
+   font-family: 'Inter', monospace;
+   text-align: center;
+   outline: none;
+   transition: all 0.2s ease;
+}
+
+.metronome-bpm-inline-input:focus {
+   border-color: #00a859;
+   color: #00cc6a;
+}
+
+.metronome-bpm-inline-input::-webkit-outer-spin-button,
+.metronome-bpm-inline-input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
 }
 
 .stats-toggle {

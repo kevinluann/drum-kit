@@ -27,6 +27,8 @@ const noteBpmInput = document.querySelector('#noteBpmInput')
 const saveNoteBpmButton = document.querySelector('#saveNoteBpm')
 const removeNoteBpmButton = document.querySelector('#removeNoteBpm')
 const cancelNoteBpmButton = document.querySelector('#cancelNoteBpm')
+const metronomeBpmInline = document.querySelector('#metronomeBpmInline')
+const metronomeBpmInput = document.querySelector('#metronomeBpmInput')
 
 // === Variáveis de estado ===
 
@@ -434,6 +436,7 @@ bpmControl.addEventListener('input', () => setBpm())
 metronomeToggle.addEventListener('click', () => {
   isMetronomeEnabled = !isMetronomeEnabled
   metronomeToggle.classList.toggle('active', isMetronomeEnabled)
+  metronomeBpmInline.classList.toggle('visible', isMetronomeEnabled)
 
   if (isMetronomeEnabled && isPlaying) {
     startMetronome()

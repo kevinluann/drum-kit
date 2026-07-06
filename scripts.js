@@ -15,7 +15,6 @@ const timelineNotes = document.querySelector('.timeline-notes')
 const timelineEmpty = document.querySelector('.timeline-empty')
 const timelineTrack = document.querySelector('.timeline-track')
 const statsToggle = document.querySelector('#statsToggle')
-const statsClose = document.querySelector('#statsClose')
 const statsPanel = document.querySelector('#statsPanel')
 const totalNotesDisplay = document.querySelector('#totalNotes')
 const totalTimeDisplay = document.querySelector('#totalTime')
@@ -42,8 +41,8 @@ let totalPlayTime = 0
 let compositionsPlayed = 0
 let isRecording = false
 let recordedNotes = []
-let noteBpms = {}
-let currentNoteIndex = null
+let notes = []
+let currentNoteId = null
 
 // === Funções ===
 
@@ -87,6 +86,7 @@ function playComposition(songArray) {
   const validNotes = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c']
   const filteredArray = songArray.filter(item => validNotes.includes(item))
   const startTime = Date.now()
+  const usedIds = new Set()
 
   isPlaying = true
   stopButton.removeAttribute('disabled')
@@ -100,9 +100,11 @@ function playComposition(songArray) {
 
   for (let [index, songItem] of filteredArray.entries()) {
     let currentInterval = defaultInterval
+    const noteData = notes.find(n => n.letter === songItem && !usedIds.has(n.id))
 
-    if (noteBpms[index]) {
-      currentInterval = 60000 / noteBpms[index]
+    if (noteData && noteData.customBpm) {
+      currentInterval = 60000 / noteData.customBpm
+      usedIds.add(noteData.id)
     }
 
     const timer = setTimeout(() => {
@@ -215,32 +217,28 @@ function closeBpmDropdown() {
   bpmDropdown.classList.remove('open')
 }
 
-function updateTimeline(composition) {
+function updateTimeline() {
   timelineNotes.innerHTML = ''
   
-  if (!composition.trim()) {
+  if (notes.length === 0) {
     timelineEmpty.setAttribute('style', 'display: flex')
     return
   }
   
   timelineEmpty.setAttribute('style', 'display: none')
 
-  const validNotes = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
-  const notes = composition.toUpperCase().split('')
-
-  for (let [index, note] of notes.entries()) {
-    if (note === ' ') {
+  for (let note of notes) {
+    if (note.letter === ' ') {
       const spaceElement = document.createElement('div')
       spaceElement.setAttribute('class', 'timeline-space')
       timelineNotes.appendChild(spaceElement)
-    } else if (validNotes.includes(note)) {
+    } else {
       const noteElement = document.createElement('div')
       noteElement.setAttribute('class', 'timeline-note')
-      noteElement.textContent = note
-      noteElement.setAttribute('data-note', note)
-      noteElement.setAttribute('data-index', index)
+      noteElement.textContent = note.letter.toUpperCase()
+      noteElement.setAttribute('data-id', note.id)
       
-      if (noteBpms[index]) {
+      if (note.customBpm) {
         noteElement.classList.add('has-custom-bpm')
       }
       
@@ -307,19 +305,20 @@ function toggleRecording() {
 
     if (recordedNotes.length > 0) {
       input.value = recordedNotes.join('')
-      updateTimeline(input.value)
+      updateTimeline()
     } else {
       input.value = ''
-      updateTimeline('')
+      updateTimeline()
     }
   }
 }
 
-function openBpmEditor(noteIndex) {
-  currentNoteIndex = noteIndex
+function openBpmEditor(noteId) {
+  currentNoteId = noteId
+  const note = notes.find(n => n.id === noteId)
 
-  if (noteBpms[noteIndex]) {
-    noteBpmInput.value = noteBpms[noteIndex]
+  if (note && note.customBpm) {
+    noteBpmInput.value = note.customBpm
   } else {
     noteBpmInput.value = bpmControl.value
   }
@@ -332,30 +331,32 @@ function saveNoteBpm() {
   let bpmValue = parseInt(noteBpmInput.value)
   
   if (bpmValue >= 60 && bpmValue <= 400) {
-    let allNotes = document.querySelectorAll('.timeline-note')
+    const note = notes.find(n => n.id === currentNoteId)
+    
+    if (note) {
+      note.customBpm = bpmValue
+    }
 
-    noteBpms[currentNoteIndex] = bpmValue
-
-    allNotes[currentNoteIndex].classList.add('has-custom-bpm') 
-
+    updateTimeline()
     closeBpmEditor()
   }
 }
 
 function removeNoteBpm() {
-  let allNotes = document.querySelectorAll('.timeline-note')
+  const note = notes.find(n => n.id === currentNoteId)
 
-  delete noteBpms[currentNoteIndex]
+  if (note) {
+    note.customBpm = null
+  }
 
-  allNotes[currentNoteIndex].classList.remove('has-custom-bpm')
-
+  updateTimeline()
   closeBpmEditor()
 }
 
 function closeBpmEditor() {
   noteBpmEditor.setAttribute('style', 'display: none')
   noteBpmOverlay.setAttribute('style', 'display: none')
-  currentNoteIndex = null
+  currentNoteId = null
 }
 
 // === Event listeners ===
@@ -378,11 +379,27 @@ keysContainer.addEventListener('click', (event) => {
   }
 })
 
-input.addEventListener('input', (event) => {
+input.addEventListener('input', () => {
   const regex = /[^QWEASDZXC\s]/gi
   input.value = input.value.replace(regex, '').replace(/^\s+/, '').replace(/\s{3,}/g, '').toLowerCase()
-  
-  updateTimeline(event.target.value)
+
+  const newLetters = input.value.split('')
+  const newNotes = []
+
+  for (let i = 0; i < newLetters.length; i++) {
+    if (notes[i] && notes[i].letter === newLetters[i]) {
+      newNotes.push(notes[i])
+    } else {
+      newNotes.push({
+        id: Date.now() + i,
+        letter: newLetters[i],
+        customBpm: null
+      })
+    }
+  }
+
+  notes = newNotes
+  updateTimeline()
 })
 
 playButton.addEventListener('click', () => {
@@ -467,8 +484,8 @@ recordToggle.addEventListener('click', () => toggleRecording())
 
 timelineNotes.addEventListener('click', (event) => {
   if (event.target.classList.contains('timeline-note')) {
-    let index = parseInt(event.target.dataset.index)
-    openBpmEditor(index)
+    let noteId = parseInt(event.target.dataset.id)
+    openBpmEditor(noteId)
   }
 })
 

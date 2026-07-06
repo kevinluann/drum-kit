@@ -45,6 +45,7 @@ let isRecording = false
 let recordedNotes = []
 let notes = []
 let currentNoteId = null
+let metronomeBpm = 120
 
 // === Funções ===
 
@@ -192,7 +193,7 @@ function setBpm() {
 
 function startMetronome() {
   const metronomeAudio = document.querySelector('#s_metronome')
-  let interval = 60000 / bpm
+  let interval = 60000 / metronomeBpm
 
   if (metronomeTimer) {
     stopMetronome()
@@ -381,6 +382,15 @@ function buildNotesFromInput() {
   updateTimeline()
 }
 
+function setMetronomeBpm() {
+  metronomeBpm = metronomeBpmInput.value
+
+  if (isMetronomeEnabled && isPlaying) {
+    stopMetronome()
+    startMetronome()
+  }
+}
+
 // === Event listeners ===
 
 document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
@@ -503,3 +513,5 @@ removeNoteBpmButton.addEventListener('click', () => removeNoteBpm())
 cancelNoteBpmButton.addEventListener('click', () => closeBpmEditor())
 
 noteBpmOverlay.addEventListener('click', () => closeBpmEditor())
+
+metronomeBpmInput.addEventListener('input', () => setMetronomeBpm())

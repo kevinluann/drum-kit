@@ -305,12 +305,12 @@ function toggleRecording() {
 
     if (recordedNotes.length > 0) {
       input.value = recordedNotes.join('')
-      updateTimeline()
     } else {
       input.value = ''
-      updateTimeline()
     }
   }
+  
+  buildNotesFromInput()
 }
 
 function openBpmEditor(noteId) {
@@ -359,6 +359,26 @@ function closeBpmEditor() {
   currentNoteId = null
 }
 
+function buildNotesFromInput() {
+  const newLetters = input.value.split('')
+  const newNotes = []
+
+  for (let i = 0; i < newLetters.length; i++) {
+    if (notes[i] && notes[i].letter === newLetters[i]) {
+      newNotes.push(notes[i])
+    } else {
+      newNotes.push({
+        id: Date.now() + i,
+        letter: newLetters[i],
+        customBpm: null
+      })
+    }
+  }
+
+  notes = newNotes
+  updateTimeline()
+}
+
 // === Event listeners ===
 
 document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
@@ -383,23 +403,7 @@ input.addEventListener('input', () => {
   const regex = /[^QWEASDZXC\s]/gi
   input.value = input.value.replace(regex, '').replace(/^\s+/, '').replace(/\s{3,}/g, '').toLowerCase()
 
-  const newLetters = input.value.split('')
-  const newNotes = []
-
-  for (let i = 0; i < newLetters.length; i++) {
-    if (notes[i] && notes[i].letter === newLetters[i]) {
-      newNotes.push(notes[i])
-    } else {
-      newNotes.push({
-        id: Date.now() + i,
-        letter: newLetters[i],
-        customBpm: null
-      })
-    }
-  }
-
-  notes = newNotes
-  updateTimeline()
+  buildNotesFromInput()
 })
 
 playButton.addEventListener('click', () => {

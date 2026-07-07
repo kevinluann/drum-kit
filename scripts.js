@@ -537,8 +537,8 @@ metronomeBpmInput.addEventListener('blur', () => {
 
   if (isNaN(value) || value < 30) {
     metronomeBpmInput.value = 30
-  } else if (value > 300) {
-    metronomeBpmInput.value = 300
+  } else if (value > 400) {
+    metronomeBpmInput.value = 400
   }
   
   setMetronomeBpm()

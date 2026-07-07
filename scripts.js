@@ -514,4 +514,24 @@ cancelNoteBpmButton.addEventListener('click', () => closeBpmEditor())
 
 noteBpmOverlay.addEventListener('click', () => closeBpmEditor())
 
-metronomeBpmInput.addEventListener('input', () => setMetronomeBpm())
+noteBpmInput.addEventListener('blur', () => {
+  let value = parseInt(noteBpmInput.value)
+
+  if (isNaN(value) || value < 60) {
+    noteBpmInput.value = 60
+  } else if (value > 400) {
+    noteBpmInput.value = 400
+  }
+})
+
+metronomeBpmInput.addEventListener('blur', () => {
+  let value = parseInt(metronomeBpmInput.value)
+
+  if (isNaN(value) || value < 30) {
+    metronomeBpmInput.value = 30
+  } else if (value > 300) {
+    metronomeBpmInput.value = 300
+  }
+  
+  setMetronomeBpm()
+})

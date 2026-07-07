@@ -47,6 +47,7 @@ let recordedNotes = []
 let notes = []
 let currentNoteId = null
 let metronomeBpm = 120
+let draggedNoteIndex = null
 
 // === Funções ===
 
@@ -238,7 +239,7 @@ function updateTimeline() {
   
   timelineEmpty.setAttribute('style', 'display: none')
 
-  for (let note of notes) {
+  for (let [index, note] of notes.entries()) {
     if (note.letter === ' ') {
       const spaceElement = document.createElement('div')
       spaceElement.setAttribute('class', 'timeline-space')
@@ -248,6 +249,8 @@ function updateTimeline() {
       noteElement.setAttribute('class', 'timeline-note')
       noteElement.textContent = note.letter.toUpperCase()
       noteElement.setAttribute('data-id', note.id)
+      noteElement.setAttribute('data-index', index)
+      noteElement.setAttribute('draggable', 'true')
       
       if (note.customBpm) {
         noteElement.classList.add('has-custom-bpm')
@@ -542,4 +545,37 @@ metronomeBpmInput.addEventListener('blur', () => {
   }
   
   setMetronomeBpm()
+})
+
+timelineNotes.addEventListener('dragstart', (event) => {
+  if (event.target.classList.contains('timeline-note')) {
+    draggedNoteIndex = parseInt(event.target.dataset.index)
+    event.target.setAttribute('style', 'opacity: 0.5;')
+  }
+})
+
+timelineNotes.addEventListener('dragover', (event) => {
+  event.preventDefault()
+})
+
+timelineNotes.addEventListener('drop', (event) => {
+  event.preventDefault()
+
+  if (event.target.classList.contains('timeline-note')) {
+    let targetIndex = parseInt(event.target.dataset.index)
+
+    let draggedNote = notes[draggedNoteIndex]
+    notes.splice(draggedNoteIndex, 1)
+    notes.splice(targetIndex, 0, draggedNote)
+
+    updateTimeline()
+  }
+
+  draggedNoteIndex = null
+
+  input.value = notes.map(note => note.letter).join('')
+})
+
+timelineNotes.addEventListener('dragend', (event) => {
+  event.target.setAttribute('style', 'opacity: 1;')
 })

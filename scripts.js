@@ -29,6 +29,7 @@ const removeNoteBpmButton = document.querySelector('#removeNoteBpm')
 const cancelNoteBpmButton = document.querySelector('#cancelNoteBpm')
 const metronomeBpmInline = document.querySelector('#metronomeBpmInline')
 const metronomeBpmInput = document.querySelector('#metronomeBpmInput')
+const noteCountDisplay = document.querySelector('#noteCount')
 
 // === Variáveis de estado ===
 
@@ -74,6 +75,7 @@ function playSound(sound) {
 
       if (validNotes.includes(noteLetter)) {
         recordedNotes.push(noteLetter)
+        noteCountDisplay.textContent = recordedNotes.length + ' notas'
       }
     }
 
@@ -222,6 +224,12 @@ function closeBpmDropdown() {
 
 function updateTimeline() {
   timelineNotes.innerHTML = ''
+
+  if (notes.length === 1) {
+    noteCountDisplay.textContent = notes.length + ' nota'
+  } else {
+    noteCountDisplay.textContent = notes.length + ' notas'
+  }
   
   if (notes.length === 0) {
     timelineEmpty.setAttribute('style', 'display: flex')

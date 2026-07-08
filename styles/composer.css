@@ -19,16 +19,34 @@
       margin-bottom: 0.375rem;
    }
 
+   .note-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: -0.25rem;
+      margin-bottom: 0.5rem;
+   }
+
    .note-count {
-      color: var(--text-secondary);
-      font-size: 0.625rem;
+      color: var(--accent-primary);
+      font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      display: block;
-      text-align: center;
-      margin-top: -0.25rem;
-      margin-bottom: 0.5rem;
+   }
+
+   .duration-display {
+      color: var(--accent-secondary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+   }
+
+   .note-separator {
+      color: var(--text-secondary);
+      font-size: 0.5rem;
    }
 
    .timeline-track {

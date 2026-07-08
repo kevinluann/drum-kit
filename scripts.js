@@ -30,6 +30,7 @@ const cancelNoteBpmButton = document.querySelector('#cancelNoteBpm')
 const metronomeBpmInline = document.querySelector('#metronomeBpmInline')
 const metronomeBpmInput = document.querySelector('#metronomeBpmInput')
 const noteCountDisplay = document.querySelector('#noteCount')
+const durationDisplay = document.querySelector('#durationDisplay')
 
 // === Variáveis de estado ===
 
@@ -48,6 +49,9 @@ let notes = []
 let currentNoteId = null
 let metronomeBpm = 120
 let draggedNoteIndex = null
+let countdownStartTime = null
+let countdownTotalMs = 0
+let isCountDownsRunning = false
 
 // === Funções ===
 
@@ -123,11 +127,16 @@ function playComposition(songArray) {
     awaitTime += currentInterval
   }
 
+  startDurationCountdown()
+
   const finalTimer = setTimeout(() => {
     const endTime = Date.now()
+
     totalPlayTime += (endTime - startTime) / 1000
     compositionsPlayed++
     updateStatsDisplay()
+
+    updateDurationDisplay()
 
     isPlaying = false
     stopButton.setAttribute('disabled', 'true')
@@ -165,6 +174,9 @@ function stopComposition() {
   timers = []
   isPlaying = false
 
+  stopDurationCountdown()
+  updateDurationDisplay()
+
   playButton.removeAttribute('disabled')
   stopButton.setAttribute('disabled', 'true')
   bpmControl.removeAttribute('disabled')
@@ -187,6 +199,8 @@ function setBpm() {
   bpm = bpmControl.value
 
   bpmValue.textContent = bpm
+
+  updateDurationDisplay()
 
   if (isMetronomeEnabled && isPlaying) {
     stopMetronome()
@@ -231,6 +245,8 @@ function updateTimeline() {
   } else {
     noteCountDisplay.textContent = notes.length + ' notas'
   }
+
+  updateDurationDisplay()
   
   if (notes.length === 0) {
     timelineEmpty.setAttribute('style', 'display: flex')
@@ -400,6 +416,56 @@ function setMetronomeBpm() {
     stopMetronome()
     startMetronome()
   }
+}
+
+function calculateDuration() {
+  const validNotes = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c']
+  const filteredNotes = notes.filter(note => validNotes.includes(note.letter))
+
+  let totalMs = 0
+
+  for (let note of filteredNotes) {
+    if (note.customBpm) {
+      totalMs += 60000 / note.customBpm
+    } else {
+      totalMs += 60000 / bpm
+    }
+  }
+
+  return totalMs
+}
+
+function updateDurationDisplay() {
+  const totalMs = calculateDuration()
+  const seconds = (totalMs / 1000).toFixed(1)
+
+  durationDisplay.textContent = seconds + 's'
+}
+
+function updateCountdown() {
+  if (!isCountDownsRunning) return
+
+  const elapsed = Date.now() - countdownStartTime
+  const remaining = countdownTotalMs - elapsed
+
+  if (remaining <= 0) {
+    durationDisplay.textContent = '0.0s'
+  } else {
+    durationDisplay.textContent = (remaining / 1000).toFixed(1) + 's'
+    requestAnimationFrame(updateCountdown)
+  }
+}
+
+function startDurationCountdown() {
+  countdownStartTime = Date.now()
+  countdownTotalMs = calculateDuration()
+  isCountDownsRunning = true
+
+  updateCountdown()
+}
+
+function stopDurationCountdown() {
+  isCountDownsRunning = false
 }
 
 // === Event listeners ===

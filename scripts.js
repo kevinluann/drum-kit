@@ -250,11 +250,7 @@ function closeBpmDropdown() {
 function updateTimeline() {
   timelineNotes.innerHTML = ''
 
-  if (notes.length === 1) {
-    noteCountDisplay.textContent = notes.length + ' nota'
-  } else {
-    noteCountDisplay.textContent = notes.length + ' notas'
-  }
+  noteCountDisplay.textContent = notes.length + (notes.length === 1 ? ' nota' : ' notas')
 
   updateDurationDisplay()
   

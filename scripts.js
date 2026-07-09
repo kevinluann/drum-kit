@@ -31,6 +31,8 @@ const metronomeBpmInline = document.querySelector('#metronomeBpmInline')
 const metronomeBpmInput = document.querySelector('#metronomeBpmInput')
 const noteCountDisplay = document.querySelector('#noteCount')
 const durationDisplay = document.querySelector('#durationDisplay')
+const noteBpmRepeat = document.querySelector('.note-bpm-repeat')
+const repeatBtns = document.querySelectorAll('.repeat-btn')
 
 // === Variáveis de estado ===
 
@@ -118,7 +120,15 @@ function playComposition(songArray) {
     }
 
     const timer = setTimeout(() => {
-      playSound(`key${songItem}`)
+      const repeatCount = noteData ? noteData.repeat : 1
+      const repeatInterval = noteData && noteData.customBpm ? 60000 / noteData.customBpm : 60000 / bpm
+
+      for (let repeat = 0; repeat < repeatCount; repeat++) {
+        setTimeout(() => {
+          playSound(`key${songItem}`)
+        }, repeat * repeatInterval);
+      }
+
       highlightNote(index)
     }, awaitTime);
 
@@ -353,6 +363,14 @@ function openBpmEditor(noteId) {
     noteBpmInput.value = bpmControl.value
   }
 
+  for (let btn of repeatBtns) {
+    btn.classList.remove('active')
+
+    if (note && parseInt(btn.dataset.repeat) === note.repeat) {
+      btn.classList.add('active')
+    }
+  }
+
   noteBpmEditor.setAttribute('style', 'display: block')
   noteBpmOverlay.setAttribute('style', 'display: block')
 }
@@ -377,6 +395,7 @@ function removeNoteBpm() {
 
   if (note) {
     note.customBpm = null
+    note.repeat = 1
   }
 
   updateTimeline()
@@ -400,7 +419,8 @@ function buildNotesFromInput() {
       newNotes.push({
         id: Date.now() + i,
         letter: newLetters[i],
-        customBpm: null
+        customBpm: null,
+        repeat: 1
       })
     }
   }
@@ -644,4 +664,20 @@ timelineNotes.addEventListener('drop', (event) => {
 
 timelineNotes.addEventListener('dragend', (event) => {
   event.target.setAttribute('style', 'opacity: 1;')
+})
+
+noteBpmRepeat.addEventListener('click', (event) => {
+  if (event.target.classList.contains('repeat-btn')) {
+    const note = notes.find(n => n.id === currentNoteId)
+    
+    if (note) {
+      note.repeat = parseInt(event.target.dataset.repeat)
+    }
+
+    for (let btn of repeatBtns) {
+      btn.classList.remove('active')
+    }
+
+    event.target.classList.add('active')
+  }
 })

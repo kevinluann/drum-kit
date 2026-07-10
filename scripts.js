@@ -33,6 +33,7 @@ const noteCountDisplay = document.querySelector('#noteCount')
 const durationDisplay = document.querySelector('#durationDisplay')
 const noteBpmRepeat = document.querySelector('.note-bpm-repeat')
 const repeatBtns = document.querySelectorAll('.repeat-btn')
+const muteNoteBtn = document.querySelector('#muteNoteBtn')
 
 // === Variáveis de estado ===
 
@@ -120,6 +121,11 @@ function playComposition(songArray) {
     }
 
     const timer = setTimeout(() => {
+      if (noteData && noteData.muted) {
+        highlightNote(index)
+        return
+      }
+
       const repeatCount = noteData ? noteData.repeat : 1
       const repeatInterval = noteData && noteData.customBpm ? 60000 / noteData.customBpm : 60000 / bpm
 
@@ -277,6 +283,10 @@ function updateTimeline() {
       if (note.customBpm) {
         noteElement.classList.add('has-custom-bpm')
       }
+
+      if (note.muted) {
+        noteElement.classList.add('muted')
+      }
       
       timelineNotes.appendChild(noteElement)
     }
@@ -367,6 +377,14 @@ function openBpmEditor(noteId) {
     }
   }
 
+  if (note && note.muted) {
+    muteNoteBtn.classList.add('active')
+    muteNoteBtn.textContent = 'Silenciado'
+  } else {
+    muteNoteBtn.classList.remove('active')
+    muteNoteBtn.textContent = 'Silenciar'
+  }
+
   noteBpmEditor.setAttribute('style', 'display: block')
   noteBpmOverlay.setAttribute('style', 'display: block')
 }
@@ -392,6 +410,7 @@ function removeNoteBpm() {
   if (note) {
     note.customBpm = null
     note.repeat = 1
+    note.muted = false
   }
 
   updateTimeline()
@@ -416,7 +435,8 @@ function buildNotesFromInput() {
         id: Date.now() + i,
         letter: newLetters[i],
         customBpm: null,
-        repeat: 1
+        repeat: 1,
+        muted: false
       })
     }
   }
@@ -676,4 +696,15 @@ noteBpmRepeat.addEventListener('click', (event) => {
 
     event.target.classList.add('active')
   }
+})
+
+muteNoteBtn.addEventListener('click', () => {
+  const note = notes.find(n => n.id === currentNoteId)
+
+  if (note) {
+    note.muted = !note.muted
+  }
+
+  muteNoteBtn.classList.toggle('active')
+  muteNoteBtn.textContent = note.muted ? 'Silenciado' : 'Silenciar'
 })

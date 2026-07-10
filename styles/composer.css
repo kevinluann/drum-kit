@@ -144,6 +144,11 @@
          border-color: var(--accent-secondary);
          transform: scale(0.96);
       }
+
+      &.muted {
+         opacity: 0.3;
+         text-decoration: line-through;
+      }
    }
 
    .timeline-space {

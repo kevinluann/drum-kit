@@ -863,6 +863,30 @@
    color: #000;
 }
 
+.mute-btn {
+   width: 100%;
+   padding: 0.5rem;
+   background: var(--bg-tertiary);
+   border: 1px solid var(--border-light);
+   border-radius: 4px;
+   color: var(--text-secondary);
+   font-size: 0.75rem;
+   font-weight: 600;
+   cursor: pointer;
+   transition: all 0.15s ease;
+}
+
+.mute-btn:hover {
+   border-color: var(--border-color);
+   color: var(--text-primary);
+}
+
+.mute-btn.active {
+   background: #ff4444;
+   border-color: #ff4444;
+   color: #fff;
+}
+
 .note-bpm-buttons {
    display: flex;
    gap: 0.5rem;

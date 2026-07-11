@@ -130,7 +130,13 @@ function playComposition(songArray) {
 
       const repeatCount = noteData ? noteData.repeat : 1
       const repeatInterval = noteData && noteData.customBpm ? 60000 / noteData.customBpm : 60000 / bpm
-      const noteVolume = noteData ? noteData.volume / 100 : 1
+      let noteVolume
+
+      if (noteData && noteData.volume !== null) {
+        noteVolume = noteData.volume / 100
+      } else {
+        noteVolume = volumeControl.value / 100
+      }
 
       for (let repeat = 0; repeat < repeatCount; repeat++) {
         setTimeout(() => {
@@ -372,8 +378,13 @@ function openBpmEditor(noteId) {
   currentNoteId = noteId
   const note = notes.find(n => n.id === noteId)
 
-  noteVolumeInput.value = note ? note.volume : 100
-  noteVolumeValue.textContent = note ? note.volume : 100
+  if (note && note.volume !== null) {
+    noteVolumeInput.value = note.volume
+    noteVolumeValue.textContent = note.volume
+  } else {
+    noteVolumeInput.value = volumeControl.value
+    noteVolumeValue.textContent = volumeControl.value
+  }
 
   if (note && note.customBpm) {
     noteBpmInput.value = note.customBpm
@@ -423,7 +434,7 @@ function removeNoteBpm() {
     note.customBpm = null
     note.repeat = 1
     note.muted = false
-    note.volume = 100
+    note.volume = null
   }
 
   updateTimeline()
@@ -450,7 +461,7 @@ function buildNotesFromInput() {
         customBpm: null,
         repeat: 1,
         muted: false,
-        volume: 100
+        volume: null
       })
     }
   }

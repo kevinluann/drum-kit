@@ -34,6 +34,8 @@ const durationDisplay = document.querySelector('#durationDisplay')
 const noteBpmRepeat = document.querySelector('.note-bpm-repeat')
 const repeatBtns = document.querySelectorAll('.repeat-btn')
 const muteNoteBtn = document.querySelector('#muteNoteBtn')
+const noteVolumeInput = document.querySelector('#noteVolumeInput')
+const noteVolumeValue = document.querySelector('#noteVolumeValue')
 
 // === Variáveis de estado ===
 
@@ -128,9 +130,16 @@ function playComposition(songArray) {
 
       const repeatCount = noteData ? noteData.repeat : 1
       const repeatInterval = noteData && noteData.customBpm ? 60000 / noteData.customBpm : 60000 / bpm
+      const noteVolume = noteData ? noteData.volume / 100 : 1
 
       for (let repeat = 0; repeat < repeatCount; repeat++) {
         setTimeout(() => {
+          const audioElement = document.querySelector(`#s_key${songItem}`)
+
+          if (audioElement) {
+            audioElement.volume = noteVolume
+          }
+
           playSound(`key${songItem}`)
         }, repeat * repeatInterval);
       }
@@ -363,6 +372,9 @@ function openBpmEditor(noteId) {
   currentNoteId = noteId
   const note = notes.find(n => n.id === noteId)
 
+  noteVolumeInput.value = note ? note.volume : 100
+  noteVolumeValue.textContent = note ? note.volume : 100
+
   if (note && note.customBpm) {
     noteBpmInput.value = note.customBpm
   } else {
@@ -411,6 +423,7 @@ function removeNoteBpm() {
     note.customBpm = null
     note.repeat = 1
     note.muted = false
+    note.volume = 100
   }
 
   updateTimeline()
@@ -436,7 +449,8 @@ function buildNotesFromInput() {
         letter: newLetters[i],
         customBpm: null,
         repeat: 1,
-        muted: false
+        muted: false,
+        volume: 100
       })
     }
   }
@@ -707,4 +721,14 @@ muteNoteBtn.addEventListener('click', () => {
 
   muteNoteBtn.classList.toggle('active')
   muteNoteBtn.textContent = note.muted ? 'Silenciado' : 'Silenciar'
+})
+
+noteVolumeInput.addEventListener('input', () => {
+  const note = notes.find(n => n.id === currentNoteId)
+
+  noteVolumeValue.textContent = noteVolumeInput.value
+
+  if (note) {
+    note.volume = parseInt(noteVolumeInput.value)
+  }
 })

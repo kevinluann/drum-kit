@@ -887,6 +887,54 @@
    color: #fff;
 }
 
+.note-volume-wrapper {
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+}
+
+.note-volume-input {
+   flex: 1;
+   height: 6px;
+   -webkit-appearance: none;
+   appearance: none;
+   background: var(--bg-tertiary);
+   border-radius: 3px;
+   border: 1px solid var(--border-light);
+   outline: none;
+   cursor: pointer;
+}
+
+.note-volume-input::-webkit-slider-thumb {
+   -webkit-appearance: none;
+   appearance: none;
+   width: 16px;
+   height: 16px;
+   background: linear-gradient(to bottom, var(--accent-primary), #e65c00);
+   border-radius: 50%;
+   cursor: pointer;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.note-volume-input::-moz-range-thumb {
+   width: 16px;
+   height: 16px;
+   background: linear-gradient(to bottom, var(--accent-primary), #e65c00);
+   border-radius: 50%;
+   cursor: pointer;
+   border: none;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.note-volume-value {
+   color: var(--accent-primary);
+   font-size: 0.75rem;
+   font-weight: 600;
+   font-family: 'Inter', monospace;
+   min-width: 2rem;
+   text-align: right;
+}
+
 .note-bpm-buttons {
    display: flex;
    gap: 0.5rem;

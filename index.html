@@ -146,6 +146,13 @@
             <label class="note-bpm-label">Som</label>
             <button type="button" id="muteNoteBtn" class="mute-btn">Silenciar</button>
         </div>
+        <div class="note-bpm-field">
+            <label class="note-bpm-label">Volume</label>
+            <div class="note-volume-wrapper">
+                <input type="range" id="noteVolumeInput" min="0" max="100" value="100" class="note-volume-input">
+                <span class="note-volume-value" id="noteVolumeValue">100</span>
+            </div>
+        </div>
         <div class="note-bpm-buttons">
             <button id="saveNoteBpm" type="button" class="note-bpm-btn note-bpm-btn--save">Salvar</button>
             <button id="removeNoteBpm" type="button" class="note-bpm-btn note-bpm-btn--remove">Remover</button>

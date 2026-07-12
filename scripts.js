@@ -108,6 +108,7 @@ function playComposition(songArray) {
   stopButton.removeAttribute('disabled')
   playButton.setAttribute('disabled', 'true')
   bpmControl.setAttribute('disabled', 'true')
+  input.setAttribute('disabled', 'true')
   bpmValue.classList.add('disabled')
   randomButton.classList.add('disabled')
 
@@ -175,6 +176,7 @@ function playComposition(songArray) {
     stopButton.setAttribute('disabled', 'true')
     playButton.removeAttribute('disabled')
     bpmControl.removeAttribute('disabled')
+    input.removeAttribute('disabled')
     bpmValue.classList.remove('disabled')
     randomButton.classList.remove('disabled')
 
@@ -214,6 +216,7 @@ function stopComposition() {
   playButton.removeAttribute('disabled')
   stopButton.setAttribute('disabled', 'true')
   bpmControl.removeAttribute('disabled')
+  input.removeAttribute('disabled')
   bpmValue.classList.remove('disabled')
   randomButton.classList.remove('disabled')
 }

@@ -212,6 +212,16 @@
       &:disabled {
          opacity: 0.5;
          cursor: not-allowed;
+
+         &:hover {
+            border-color: var(--border-light);
+            background: var(--bg-tertiary);
+         }
+      }
+
+      &:disabled {
+         opacity: 0.5;
+         cursor: not-allowed;
          border-color: var(--border-light);
          color: var(--text-secondary);
          background: var(--bg-tertiary);
@@ -353,6 +363,15 @@
 
       &:hover {
          border-color: var(--accent-primary);
+      }
+
+      &:has(input:disabled) {
+         opacity: 0.5;
+         cursor: not-allowed;
+
+         &:hover {
+            border-color: var(--border-light);
+         }
       }
 
       input {

@@ -36,6 +36,7 @@ const repeatBtns = document.querySelectorAll('.repeat-btn')
 const muteNoteBtn = document.querySelector('#muteNoteBtn')
 const noteVolumeInput = document.querySelector('#noteVolumeInput')
 const noteVolumeValue = document.querySelector('#noteVolumeValue')
+const randomButton = document.querySelector('#randomBtn')
 
 // === Variáveis de estado ===
 
@@ -529,6 +530,19 @@ function stopDurationCountdown() {
   isCountDownsRunning = false
 }
 
+function generateRandomComposition() {
+  const letters = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c']
+  const length = Math.floor(Math.random() * 16) + 5
+  let result = ''
+
+  for (let i =0; i < length; i++) {
+    result += letters[Math.floor(Math.random() * letters.length)]
+  }
+
+  input.value = result
+  buildNotesFromInput()
+}
+
 // === Event listeners ===
 
 document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
@@ -741,5 +755,11 @@ noteVolumeInput.addEventListener('input', () => {
 
   if (note) {
     note.volume = parseInt(noteVolumeInput.value)
+  }
+})
+
+randomButton.addEventListener('click', () => {
+  if (!isPlaying) {
+    generateRandomComposition()
   }
 })

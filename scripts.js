@@ -37,6 +37,7 @@ const muteNoteBtn = document.querySelector('#muteNoteBtn')
 const noteVolumeInput = document.querySelector('#noteVolumeInput')
 const noteVolumeValue = document.querySelector('#noteVolumeValue')
 const randomButton = document.querySelector('#randomBtn')
+const reversedButton = document.querySelector('#reverseBtn')
 
 // === Variáveis de estado ===
 
@@ -58,6 +59,7 @@ let draggedNoteIndex = null
 let countdownStartTime = null
 let countdownTotalMs = 0
 let isCountDownsRunning = false
+let isReversed = false
 
 // === Funções ===
 
@@ -549,6 +551,18 @@ function generateRandomComposition() {
   buildNotesFromInput()
 }
 
+function toggleReverse() {
+  if (isPlaying || notes.length === 0) return
+
+  isReversed = !isReversed
+  notes.reverse()
+  input.value = notes.map(note => note.letter).join('')
+
+  updateTimeline()
+
+  reversedButton.classList.toggle('active', isReversed)
+}
+
 // === Event listeners ===
 
 document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
@@ -769,3 +783,5 @@ randomButton.addEventListener('click', () => {
     generateRandomComposition()
   }
 })
+
+reversedButton.addEventListener('click', () => toggleReverse())

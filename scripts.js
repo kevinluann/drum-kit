@@ -113,6 +113,7 @@ function playComposition(songArray) {
   input.setAttribute('disabled', 'true')
   bpmValue.classList.add('disabled')
   randomButton.classList.add('disabled')
+  reversedButton.classList.add('disabled')
 
   if (isMetronomeEnabled) {
     startMetronome()
@@ -181,6 +182,7 @@ function playComposition(songArray) {
     input.removeAttribute('disabled')
     bpmValue.classList.remove('disabled')
     randomButton.classList.remove('disabled')
+    reversedButton.classList.remove('disabled')
 
     clearTimelineHighlights()
     scrollToTimelineStart()
@@ -221,6 +223,7 @@ function stopComposition() {
   input.removeAttribute('disabled')
   bpmValue.classList.remove('disabled')
   randomButton.classList.remove('disabled')
+  reversedButton.classList.remove('disabled')
 }
 
 function setVolume() {
@@ -282,7 +285,14 @@ function updateTimeline() {
 
   noteCountDisplay.textContent = notes.length + (notes.length === 1 ? ' nota' : ' notas')
 
+  reversedButton.classList.toggle('disabled', notes.length <= 1)
+
   updateDurationDisplay()
+
+  if (notes.length <= 1) {
+    isReversed = false
+    reversedButton.classList.remove('active')
+  }
   
   if (notes.length === 0) {
     timelineEmpty.setAttribute('style', 'display: flex')

@@ -374,6 +374,24 @@
          }
       }
 
+      #randomBtn,
+      #reverseBtn {
+         flex-shrink: 0;
+         width: 40px;
+         transition: opacity 0.3s ease, width 0.3s ease, min-width 0.3s ease, padding 0.3s ease, margin 0.3s ease !important;
+      }
+
+      &.expanded #randomBtn,
+      &.expanded #reverseBtn {
+         opacity: 0;
+         pointer-events: none;
+         width: 0;
+         min-width: 0;
+         padding: 0;
+         margin: 0;
+         overflow: hidden;
+      }
+
       input {
          flex: 1;
          min-width: 0;
@@ -402,7 +420,6 @@
       background: transparent;
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.2s ease;
       box-shadow: none;
 
       &:hover {
@@ -444,7 +461,6 @@
       background: transparent;
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.2s ease;
       box-shadow: none;
 
       &:hover {

@@ -38,6 +38,7 @@ const noteVolumeInput = document.querySelector('#noteVolumeInput')
 const noteVolumeValue = document.querySelector('#noteVolumeValue')
 const randomButton = document.querySelector('#randomBtn')
 const reversedButton = document.querySelector('#reverseBtn')
+const inputWrapper = document.querySelector('.input-wrapper')
 
 // === Variáveis de estado ===
 
@@ -808,3 +809,11 @@ randomButton.addEventListener('click', () => {
 })
 
 reversedButton.addEventListener('click', () => toggleReverse())
+
+input.addEventListener('focus', () => {
+  inputWrapper.classList.add('expanded')
+})
+
+input.addEventListener('blur', () => {
+  inputWrapper.classList.remove('expanded')
+})

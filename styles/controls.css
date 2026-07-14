@@ -239,7 +239,7 @@
 
       &:disabled {
          opacity: 0.4;
-         cursor: not-allowed;
+         cursor: default;
 
          &::-webkit-slider-runnable-track {
             border-color: var(--border-light);
@@ -292,7 +292,7 @@
 }
 
 .bpm-value.clickable.disabled {
-   cursor: not-allowed;
+   cursor: default;
    opacity: 0.4;
    pointer-events: none;
 }

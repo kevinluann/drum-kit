@@ -283,7 +283,13 @@ function closeBpmDropdown() {
 function updateTimeline() {
   timelineNotes.innerHTML = ''
 
-  noteCountDisplay.textContent = notes.length + (notes.length === 1 ? ' nota' : ' notas')
+  const repeatCount = notes.filter(note => note.repeat > 1).length
+
+  if (repeatCount > 0) {
+    noteCountDisplay.textContent = notes.length + (notes.length === 1 ? ' nota' : ' notas') + ' (' + repeatCount + ' com repeat)'
+  } else {
+    noteCountDisplay.textContent = notes.length + (notes.length === 1 ? ' nota' : ' notas')
+  }
 
   reversedButton.classList.toggle('disabled', notes.length <= 1)
 

@@ -90,6 +90,8 @@ function playSound(sound) {
       if (validNotes.includes(noteLetter)) {
         recordedNotes.push(noteLetter)
         noteCountDisplay.textContent = recordedNotes.length + ' notas'
+        input.value = recordedNotes.join('')
+        buildNotesFromInput()
       }
     }
 
@@ -385,7 +387,6 @@ function toggleRecording() {
     playButton.setAttribute('disabled', 'true')
 
     recordToggle.classList.add('recording')
-    input.value = ''
   } else {
     input.setAttribute('placeholder', 'Faça uma composição...')
     input.removeAttribute('disabled')
@@ -395,8 +396,6 @@ function toggleRecording() {
 
     if (recordedNotes.length > 0) {
       input.value = recordedNotes.join('')
-    } else {
-      input.value = ''
     }
   }
   

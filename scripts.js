@@ -114,6 +114,7 @@ function playComposition(songArray) {
   bpmValue.classList.add('disabled')
   randomButton.classList.add('disabled')
   reversedButton.classList.add('disabled')
+  recordToggle.classList.add('disabled')
 
   if (isMetronomeEnabled) {
     startMetronome()
@@ -183,6 +184,7 @@ function playComposition(songArray) {
     bpmValue.classList.remove('disabled')
     randomButton.classList.remove('disabled')
     reversedButton.classList.remove('disabled')
+    recordToggle.classList.remove('disabled')
 
     clearTimelineHighlights()
     scrollToTimelineStart()
@@ -224,6 +226,7 @@ function stopComposition() {
   bpmValue.classList.remove('disabled')
   randomButton.classList.remove('disabled')
   reversedButton.classList.remove('disabled')
+  recordToggle.classList.remove('disabled')
 }
 
 function setVolume() {
@@ -685,7 +688,11 @@ resetStatsButton.addEventListener('click', () => {
   updateStatsDisplay()
 })
 
-recordToggle.addEventListener('click', () => toggleRecording())
+recordToggle.addEventListener('click', () => {
+  if (!isPlaying) {
+    toggleRecording()
+  }
+})
 
 timelineNotes.addEventListener('click', (event) => {
   if (event.target.classList.contains('timeline-note')) {

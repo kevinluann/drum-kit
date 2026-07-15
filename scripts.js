@@ -39,6 +39,8 @@ const noteVolumeValue = document.querySelector('#noteVolumeValue')
 const randomButton = document.querySelector('#randomBtn')
 const reversedButton = document.querySelector('#reverseBtn')
 const inputWrapper = document.querySelector('.input-wrapper')
+const zoomInButton = document.querySelector('#zoomIn')
+const zoomOutButton = document.querySelector('#zoomOut')
 
 // === Variáveis de estado ===
 
@@ -61,6 +63,7 @@ let countdownStartTime = null
 let countdownTotalMs = 0
 let isCountDownsRunning = false
 let isReversed = false
+let zoom = 1
 
 // === Funções ===
 
@@ -582,6 +585,11 @@ function toggleReverse() {
   reversedButton.classList.toggle('active', isReversed)
 }
 
+function setZoom(value) {
+  zoom = Math.max(0.8, Math.min(1.5, value))
+  timelineNotes.style.setProperty('--zoom', zoom)
+}
+
 // === Event listeners ===
 
 document.body.addEventListener('keyup', (event) => playSound(event.code.toLowerCase()))
@@ -816,3 +824,7 @@ input.addEventListener('focus', () => {
 input.addEventListener('blur', () => {
   inputWrapper.classList.remove('expanded')
 })
+
+zoomInButton.addEventListener('click', () => setZoom(zoom + 0.1))
+
+zoomOutButton.addEventListener('click', () => setZoom(zoom - 0.1))

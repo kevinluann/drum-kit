@@ -60,9 +60,13 @@
         <form class="composer" aria-label="Compositor de batidas">
             <div class="composer-timeline">
                 <div class="note-info">
-                    <span class="note-count" id="noteCount">0 notas</span>
-                    <span class="note-separator">•</span>
-                    <span class="duration-display" id="durationDisplay">0.0s</span>
+                    <button type="button" id="zoomOut" class="zoom-btn" aria-label="Diminuir zoom">−</button>
+                    <div class="note-info-center">
+                        <span class="note-count" id="noteCount">0 notas</span>
+                        <span class="note-separator">•</span>
+                        <span class="duration-display" id="durationDisplay">0.0s</span>
+                    </div>
+                    <button type="button" id="zoomIn" class="zoom-btn" aria-label="Aumentar zoom">+</button>
                 </div>
                 <div class="timeline-track">
                     <div class="timeline-empty">

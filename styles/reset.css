@@ -5,14 +5,64 @@
 }
 
 :root {
-   --bg-primary: #0a0a0a;
-   --bg-secondary: #141414;
-   --bg-tertiary: #1a1a1a;
-   --accent-primary: #ff6b00;
-   --accent-secondary: #00ff88;
-   --text-primary: #ffffff;
-   --text-secondary: #888888;
-   --border-color: #333333;
-   --border-light: #444444;
-   --surface-color: #1f1f1f;
+   --bg-primary: #0b0d10;
+   --bg-secondary: #14171c;
+   --bg-tertiary: #1c2026;
+   --surface-color: #232830;
+
+   --accent-primary: #ff7a1a;
+   --accent-primary-glow: rgba(255, 122, 26, 0.35);
+   --accent-secondary: #1bdb7a;
+   --accent-secondary-glow: rgba(29, 219, 122, 0.35);
+
+   --danger: #ff4d5e;
+
+   --text-primary: #f5f6f8;
+   --text-secondary: #8b93a1;
+   --text-tertiary: #5a6170;
+
+   --border-color: #2a2f37;
+   --border-light: #353b45;
+   --border-strong: #454c57;
+
+   --radius-sm: 6px;
+   --radius-md: 10px;
+   --radius-lg: 14px;
+
+   --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.35);
+   --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.45);
+   --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.55);
+}
+
+body {
+   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+   font-family: inherit;
+}
+
+input,
+button {
+   outline: none;
+}
+
+::-webkit-scrollbar {
+   width: 8px;
+   height: 8px;
+}
+
+::-webkit-scrollbar-track {
+   background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+   background: var(--border-strong);
+   border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+   background: var(--accent-primary);
 }

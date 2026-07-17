@@ -16,46 +16,53 @@
         <div class="instructions">
             <p>Pressione as teclas <strong>Q, W, E, A, S, D, Z, X, C</strong> ou clique nos pads para tocar</p>
         </div>
-        <div class="keys">
-            <div data-key="keyq" class="key" aria-label="Tecla Q - Som de bateria">Q</div>
-            <div data-key="keyw" class="key" aria-label="Tecla W - Som de bateria">W</div>
-            <div data-key="keye" class="key" aria-label="Tecla E - Som de bateria">E</div>
+        <div class="workspace">
+            <aside class="side-controls side-controls--left" aria-label="Controles de BPM e metrônomo">
+                <div class="bpm-control">
+                    <span class="bpm-label">BPM</span>
+                    <div class="bpm-slider-wrapper">
+                        <input type="range" id="bpm" min="60" max="400" step="5" value="240" aria-label="Controle de BPM">
+                    </div>
+                    <span class="bpm-value clickable" id="bpmValue" role="button" tabindex="0" aria-label="Abrir presets de BPM">240</span>
+                    <div class="bpm-dropdown" id="bpmDropdown">
+                        <button class="bpm-preset" data-bpm="60" type="button">60</button>
+                        <button class="bpm-preset" data-bpm="90" type="button">90</button>
+                        <button class="bpm-preset" data-bpm="120" type="button">120</button>
+                        <button class="bpm-preset" data-bpm="140" type="button">140</button>
+                        <button class="bpm-preset" data-bpm="160" type="button">160</button>
+                        <button class="bpm-preset" data-bpm="180" type="button">180</button>
+                        <button class="bpm-preset" data-bpm="200" type="button">200</button>
+                        <button class="bpm-preset" data-bpm="240" type="button">240</button>
+                    </div>
+                </div>
+                <button class="metronome-toggle" id="metronomeToggle" type="button" aria-label="Ativar metrônomo">Metr</button>
+                <div class="metronome-bpm-inline" id="metronomeBpmInline">
+                    <input type="number" id="metronomeBpmInput" min="30" max="400" value="120" class="metronome-bpm-inline-input" aria-label="BPM do metrônomo">
+                </div>
+            </aside>
+            <div class="keys">
+                <div data-key="keyq" class="key" aria-label="Tecla Q - Som de bateria">Q</div>
+                <div data-key="keyw" class="key" aria-label="Tecla W - Som de bateria">W</div>
+                <div data-key="keye" class="key" aria-label="Tecla E - Som de bateria">E</div>
 
-            <div data-key="keya" class="key" aria-label="Tecla A - Som de bateria">A</div>
-            <div data-key="keys" class="key" aria-label="Tecla S - Som de bateria">S</div>
-            <div data-key="keyd" class="key" aria-label="Tecla D - Som de bateria">D</div>
+                <div data-key="keya" class="key" aria-label="Tecla A - Som de bateria">A</div>
+                <div data-key="keys" class="key" aria-label="Tecla S - Som de bateria">S</div>
+                <div data-key="keyd" class="key" aria-label="Tecla D - Som de bateria">D</div>
 
-            <div data-key="keyz" class="key" aria-label="Tecla Z - Som de bateria">Z</div>
-            <div data-key="keyx" class="key" aria-label="Tecla X - Som de bateria">X</div>
-            <div data-key="keyc" class="key" aria-label="Tecla C - Som de bateria">C</div>
-        </div>
-        <div class="volume-control">
-            <span class="volume-label">VOL</span>
-            <div class="volume-slider-wrapper">
-                <input type="range" id="volume" min="0" max="100" step="1" value="100" aria-label="Controle de volume">
+                <div data-key="keyz" class="key" aria-label="Tecla Z - Som de bateria">Z</div>
+                <div data-key="keyx" class="key" aria-label="Tecla X - Som de bateria">X</div>
+                <div data-key="keyc" class="key" aria-label="Tecla C - Som de bateria">C</div>
             </div>
-            <span class="volume-value" id="volumeValue">100</span>
-        </div>
-        <div class="bpm-control">
-            <span class="bpm-label">BPM</span>
-            <div class="bpm-slider-wrapper">
-                <input type="range" id="bpm" min="60" max="400" step="5" value="240" aria-label="Controle de BPM">
-            </div>
-            <span class="bpm-value clickable" id="bpmValue" role="button" tabindex="0" aria-label="Abrir presets de BPM">240</span>
-            <div class="bpm-dropdown" id="bpmDropdown">
-                <button class="bpm-preset" data-bpm="60" type="button">60</button>
-                <button class="bpm-preset" data-bpm="90" type="button">90</button>
-                <button class="bpm-preset" data-bpm="120" type="button">120</button>
-                <button class="bpm-preset" data-bpm="140" type="button">140</button>
-                <button class="bpm-preset" data-bpm="160" type="button">160</button>
-                <button class="bpm-preset" data-bpm="180" type="button">180</button>
-                <button class="bpm-preset" data-bpm="200" type="button">200</button>
-                <button class="bpm-preset" data-bpm="240" type="button">240</button>
-            </div>
-        </div>
-        <button class="metronome-toggle" id="metronomeToggle" type="button" aria-label="Ativar metrônomo">Metr</button>
-        <div class="metronome-bpm-inline" id="metronomeBpmInline">
-                <input type="number" id="metronomeBpmInput" min="30" max="400" value="120" class="metronome-bpm-inline-input" aria-label="BPM do metrônomo">
+            <aside class="side-controls side-controls--right" aria-label="Controles de volume e loop">
+                <div class="volume-control">
+                    <span class="volume-label">VOL</span>
+                    <div class="volume-slider-wrapper">
+                        <input type="range" id="volume" min="0" max="100" step="1" value="100" aria-label="Controle de volume">
+                    </div>
+                    <span class="volume-value" id="volumeValue">100</span>
+                </div>
+                <button class="loop-toggle" id="loopToggle" type="button" aria-label="Ativar loop">Loop</button>
+            </aside>
         </div>
         <form class="composer" aria-label="Compositor de batidas">
             <div class="composer-timeline">
@@ -97,7 +104,6 @@
             <button id="playBtn" type="submit" aria-label="Tocar composição">Tocar</button>
             <button id="stopBtn" type="button" aria-label="Parar composição" disabled>Parar</button>
         </form>
-        <button class="loop-toggle" id="loopToggle" type="button" aria-label="Ativar loop">Loop</button>
     </main>
     <button class="record-toggle" id="recordToggle" type="button" aria-label="Gravar composição">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

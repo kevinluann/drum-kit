@@ -114,13 +114,21 @@ function playComposition(songArray) {
 
   isPlaying = true
   stopButton.removeAttribute('disabled')
+  stopButton.setAttribute('aria-disabled', 'false')
   playButton.setAttribute('disabled', 'true')
+  playButton.setAttribute('aria-disabled', 'true')
   bpmControl.setAttribute('disabled', 'true')
+  bpmControl.setAttribute('aria-disabled', 'true')
   input.setAttribute('disabled', 'true')
+  input.setAttribute('aria-disabled', 'true')
   bpmValue.classList.add('disabled')
+  bpmValue.setAttribute('aria-disabled', 'true')
   randomButton.classList.add('disabled')
+  randomButton.setAttribute('aria-disabled', 'true')
   reversedButton.classList.add('disabled')
+  reversedButton.setAttribute('aria-disabled', 'true')
   recordToggle.classList.add('disabled')
+  recordToggle.setAttribute('aria-disabled', 'true')
 
   if (isMetronomeEnabled) {
     startMetronome()
@@ -184,13 +192,21 @@ function playComposition(songArray) {
 
     isPlaying = false
     stopButton.setAttribute('disabled', 'true')
+    stopButton.setAttribute('aria-disabled', 'true')
     playButton.removeAttribute('disabled')
+    playButton.setAttribute('aria-disabled', 'false')
     bpmControl.removeAttribute('disabled')
+    bpmControl.setAttribute('aria-disabled', 'false')
     input.removeAttribute('disabled')
+    input.setAttribute('aria-disabled', 'false')
     bpmValue.classList.remove('disabled')
+    bpmValue.setAttribute('aria-disabled', 'false')
     randomButton.classList.remove('disabled')
+    randomButton.setAttribute('aria-disabled', 'false')
     reversedButton.classList.remove('disabled')
+    reversedButton.setAttribute('aria-disabled', 'false')
     recordToggle.classList.remove('disabled')
+    recordToggle.setAttribute('aria-disabled', 'false')
 
     clearTimelineHighlights()
     scrollToTimelineStart()
@@ -226,13 +242,21 @@ function stopComposition() {
   updateDurationDisplay()
 
   playButton.removeAttribute('disabled')
+  playButton.setAttribute('aria-disabled', 'false')
   stopButton.setAttribute('disabled', 'true')
+  stopButton.setAttribute('aria-disabled', 'true')
   bpmControl.removeAttribute('disabled')
+  bpmControl.setAttribute('aria-disabled', 'false')
   input.removeAttribute('disabled')
+  input.setAttribute('aria-disabled', 'false')
   bpmValue.classList.remove('disabled')
+  bpmValue.setAttribute('aria-disabled', 'false')
   randomButton.classList.remove('disabled')
+  randomButton.setAttribute('aria-disabled', 'false')
   reversedButton.classList.remove('disabled')
+  reversedButton.setAttribute('aria-disabled', 'false')
   recordToggle.classList.remove('disabled')
+  recordToggle.setAttribute('aria-disabled', 'false')
 }
 
 function setVolume() {
@@ -282,11 +306,13 @@ function stopMetronome() {
 }
 
 function toggleBpmDropdown() {
-  bpmDropdown.classList.toggle('open')
+  const isOpen = bpmDropdown.classList.toggle('open')
+  bpmValue.setAttribute('aria-expanded', isOpen)
 }
 
 function closeBpmDropdown() {
   bpmDropdown.classList.remove('open')
+  bpmValue.setAttribute('aria-expanded', 'false')
 }
 
 function updateTimeline() {
@@ -307,6 +333,7 @@ function updateTimeline() {
   if (notes.length <= 1) {
     isReversed = false
     reversedButton.classList.remove('active')
+    reversedButton.setAttribute('aria-pressed', 'false')
   }
   
   if (notes.length === 0) {
@@ -381,19 +408,24 @@ function updateStatsDisplay() {
 
 function toggleRecording() {
   isRecording = !isRecording
+  recordToggle.setAttribute('aria-pressed', isRecording)
 
   if (isRecording) {
     recordedNotes = []
 
     input.setAttribute('placeholder', 'Gravando...')
     input.setAttribute('disabled', 'true')
+    input.setAttribute('aria-disabled', 'true')
     playButton.setAttribute('disabled', 'true')
+    playButton.setAttribute('aria-disabled', 'true')
 
     recordToggle.classList.add('recording')
   } else {
     input.setAttribute('placeholder', 'Faça uma composição...')
     input.removeAttribute('disabled')
+    input.setAttribute('aria-disabled', 'false')
     playButton.removeAttribute('disabled')
+    playButton.setAttribute('aria-disabled', 'false')
 
     recordToggle.classList.remove('recording')
 
@@ -425,18 +457,22 @@ function openBpmEditor(noteId) {
 
   for (let btn of repeatBtns) {
     btn.classList.remove('active')
+    btn.setAttribute('aria-pressed', 'false')
 
     if (note && parseInt(btn.dataset.repeat) === note.repeat) {
       btn.classList.add('active')
+      btn.setAttribute('aria-pressed', 'true')
     }
   }
 
   if (note && note.muted) {
     muteNoteBtn.classList.add('active')
     muteNoteBtn.textContent = 'Silenciado'
+    muteNoteBtn.setAttribute('aria-pressed', 'true')
   } else {
     muteNoteBtn.classList.remove('active')
     muteNoteBtn.textContent = 'Silenciar'
+    muteNoteBtn.setAttribute('aria-pressed', 'false')
   }
 
   noteBpmEditor.setAttribute('style', 'display: block')
@@ -583,6 +619,7 @@ function toggleReverse() {
   updateTimeline()
 
   reversedButton.classList.toggle('active', isReversed)
+  reversedButton.setAttribute('aria-pressed', isReversed)
 }
 
 function setZoom(value) {
@@ -638,14 +675,18 @@ volumeControl.addEventListener('input', () => setVolume())
 loopToggle.addEventListener('click', () => {
   isLooping = !isLooping
   loopToggle.classList.toggle('active', isLooping)
+  loopToggle.setAttribute('aria-pressed', isLooping)
 })
 
 bpmControl.addEventListener('input', () => setBpm())
 
 metronomeToggle.addEventListener('click', () => {
   isMetronomeEnabled = !isMetronomeEnabled
+  
   metronomeToggle.classList.toggle('active', isMetronomeEnabled)
+  metronomeToggle.setAttribute('aria-pressed', isMetronomeEnabled)
   metronomeBpmInline.classList.toggle('visible', isMetronomeEnabled)
+  metronomeBpmInline.setAttribute('aria-hidden', !isMetronomeEnabled)
 
   if (isMetronomeEnabled && isPlaying) {
     startMetronome()
@@ -685,8 +726,9 @@ timelineTrack.addEventListener('wheel', (event) => {
 })
 
 statsToggle.addEventListener('click', () => {
-  statsPanel.classList.toggle('open')
-  statsToggle.classList.toggle('open')
+  const isOpen = statsPanel.classList.toggle('open')
+  statsToggle.classList.toggle('open', isOpen)
+  statsToggle.setAttribute('aria-expanded', isOpen)
 })
 
 resetStatsButton.addEventListener('click', () => {
@@ -782,9 +824,11 @@ noteBpmRepeat.addEventListener('click', (event) => {
 
     for (let btn of repeatBtns) {
       btn.classList.remove('active')
+      btn.setAttribute('aria-pressed', 'false')
     }
 
     event.target.classList.add('active')
+    event.target.setAttribute('aria-pressed', 'true')
   }
 })
 
@@ -797,6 +841,7 @@ muteNoteBtn.addEventListener('click', () => {
 
   muteNoteBtn.classList.toggle('active')
   muteNoteBtn.textContent = note.muted ? 'Silenciado' : 'Silenciar'
+  muteNoteBtn.setAttribute('aria-pressed', note.muted)
 })
 
 noteVolumeInput.addEventListener('input', () => {

@@ -316,6 +316,8 @@
    color: var(--text-secondary);
    text-align: center;
    font-family: inherit;
+   writing-mode: vertical-rl;
+   text-orientation: upright;
 }
 
 .loop-toggle:hover {
@@ -375,11 +377,13 @@
    box-shadow:
       0 4px 16px var(--accent-secondary-glow),
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
+   border-bottom-left-radius: 0;
+   border-bottom-right-radius: 0;
 }
 
 .metronome-bpm-inline {
    display: none;
-   width: 56px;
+   width: 100%;
    justify-content: center;
    margin-top: -0.625rem;
 }

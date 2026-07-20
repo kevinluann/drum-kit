@@ -1,0 +1,302 @@
+/* ===== Botão de Gravação (lateral direita, fixo) ===== */
+.record-toggle {
+   position: fixed;
+   top: 6rem;
+   right: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   user-select: none;
+   padding: 0.625rem;
+   background: var(--bg-secondary);
+   border: 1px solid var(--border-light);
+   border-right: none;
+   border-radius: var(--radius-md) 0 0 var(--radius-md);
+   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
+   width: 40px;
+   height: 40px;
+   color: var(--text-secondary);
+   z-index: 101;
+
+   &::before {
+      content: 'Gravar composição';
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%) translateX(-8px);
+      margin-right: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      box-shadow: var(--shadow-md);
+      z-index: 102;
+   }
+
+   &:hover::before {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-50%) translateX(0);
+   }
+
+   &.recording::before {
+      content: 'Gravando... Clique para parar';
+      background: var(--danger);
+      border-color: var(--danger);
+      color: #fff;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-50%) translateX(0);
+   }
+
+   &:hover {
+      background: var(--surface-color);
+      border-color: var(--danger);
+      color: var(--danger);
+   }
+
+   &.recording {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: #fff;
+      box-shadow: -4px 0 16px rgba(255, 77, 94, 0.4);
+      animation: pulse 1.5s infinite;
+   }
+
+   &.disabled {
+      opacity: 0.5;
+      cursor: default;
+
+      &:hover {
+         background: var(--bg-secondary);
+         border-color: var(--border-light);
+         color: var(--text-secondary);
+      }
+   }
+}
+
+@keyframes pulse {
+   0%, 100% {
+      opacity: 1;
+      box-shadow: -4px 0 16px rgba(255, 77, 94, 0.4);
+   }
+   50% {
+      opacity: 0.7;
+      box-shadow: -4px 0 8px rgba(255, 77, 94, 0.3);
+   }
+}
+
+/* ===== Botão de Estatísticas (lateral esquerda, fixo) ===== */
+.stats-toggle {
+   position: fixed;
+   top: 6rem;
+   left: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   user-select: none;
+   padding: 0.625rem;
+   background: var(--bg-secondary);
+   border: 1px solid var(--border-light);
+   border-left: none;
+   border-radius: 0 var(--radius-md) var(--radius-md) 0;
+   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, left 0.3s ease;
+   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+   width: 40px;
+   height: 40px;
+   color: var(--text-secondary);
+   z-index: 102;
+
+   &::before {
+      content: 'Estatísticas';
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%) translateX(8px);
+      margin-left: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      box-shadow: var(--shadow-md);
+      z-index: 102;
+   }
+
+   &:hover::before {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-50%) translateX(0);
+   }
+
+   &:hover {
+      background: var(--surface-color);
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+   }
+
+   & svg {
+      width: 20px;
+      height: 20px;
+   }
+
+   &.open {
+      left: 280px;
+   }
+}
+
+/* ===== Painel de Estatísticas (slider lateral) ===== */
+.stats-panel {
+   position: fixed;
+   top: 5.5rem;
+   left: 0;
+   transform: translateX(-100%);
+   background: var(--bg-secondary);
+   border: 1px solid var(--border-light);
+   border-left: none;
+   border-radius: 0 0 var(--radius-lg) 0;
+   padding: 0;
+   width: 280px;
+   max-width: 90vw;
+   box-shadow: var(--shadow-lg);
+   z-index: 100;
+   transition: transform 0.3s ease;
+
+   &.open {
+      transform: translateX(0);
+   }
+
+   & .stats-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-light);
+
+      & h3 {
+         font-size: 0.8125rem;
+         font-weight: 700;
+         color: var(--text-primary);
+         text-transform: uppercase;
+         letter-spacing: 0.08em;
+         margin: 0;
+      }
+   }
+
+   & .stats-content {
+      padding: 1.25rem;
+   }
+
+   & .stats-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.625rem 0;
+      border-bottom: 1px solid var(--border-light);
+
+      &:last-of-type {
+         border-bottom: none;
+      }
+
+      & .stats-label {
+         font-size: 0.75rem;
+         color: var(--text-secondary);
+         font-weight: 400;
+      }
+
+      & .stats-value {
+         font-size: 0.875rem;
+         color: var(--accent-primary);
+         font-weight: 700;
+         font-family: 'Inter', monospace;
+      }
+   }
+
+   & .reset-stats-btn {
+      width: 100%;
+      margin-top: 1.25rem;
+      padding: 0.625rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+
+      &:hover {
+         background: var(--surface-color);
+         border-color: var(--danger);
+         color: var(--danger);
+      }
+
+      &:active {
+         transform: scale(0.98);
+      }
+   }
+
+   @media (max-width: 600px) {
+      top: 4.5rem;
+      width: calc(100vw - 2rem);
+   }
+}
+
+/* ===== Container de áudio (escondido) ===== */
+.audio-container {
+   display: none;
+}
+
+/* ===== Breakpoints responsivos - panels ===== */
+@media (max-width: 900px) {
+   .record-toggle,
+   .stats-toggle {
+      top: 5.5rem;
+      width: 38px;
+      height: 38px;
+   }
+
+   .record-toggle::before {
+      font-size: 0.6875rem;
+      padding: 0.375rem 0.625rem;
+   }
+}
+
+@media (max-width: 768px) {
+   .record-toggle,
+   .stats-toggle {
+      top: 5.5rem;
+      width: 36px;
+      height: 36px;
+   }
+
+   .record-toggle::before {
+      font-size: 0.6875rem;
+      padding: 0.375rem 0.625rem;
+   }
+}
+
+@media (max-width: 640px) {
+   .record-toggle,
+   .stats-toggle {
+      display: none;
+   }
+}

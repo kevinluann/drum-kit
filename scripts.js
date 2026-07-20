@@ -327,6 +327,7 @@ function updateTimeline() {
   }
 
   reversedButton.classList.toggle('disabled', notes.length <= 1)
+  reversedButton.setAttribute('aria-disabled', notes.length <= 1)
 
   updateDurationDisplay()
 

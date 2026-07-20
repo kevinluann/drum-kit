@@ -16,6 +16,7 @@
    flex-shrink: 0;
 }
 
+/* Reserva espaço para o input do metrônomo em ambas as colunas */
 .side-controls--left,
 .side-controls--right {
    min-height: 332px;
@@ -35,7 +36,7 @@
       var(--shadow-lg),
       inset 0 1px 0 rgba(255, 255, 255, 0.04);
 
-   .key {
+   & .key {
       aspect-ratio: 1;
       min-width: 0;
       background: linear-gradient(180deg, var(--surface-color) 0%, var(--bg-tertiary) 100%);
@@ -89,76 +90,76 @@
 }
 
 @media (max-width: 900px) {
-    .workspace {
-       gap: 0.75rem;
-    }
+   .workspace {
+      gap: 0.75rem;
+   }
 
-    .keys {
-       gap: 0.625rem;
-       padding: 1rem;
-       max-width: 380px;
-    }
+   .keys {
+      gap: 0.625rem;
+      padding: 1rem;
+      max-width: 380px;
+   }
 
-    .key {
-       font-size: clamp(1.125rem, 4vw, 1.5rem);
-    }
+   .key {
+      font-size: clamp(1.125rem, 4vw, 1.5rem);
+   }
 
-    .side-controls--left,
-    .side-controls--right {
-       min-height: 277px;
-    }
+   .side-controls--left,
+   .side-controls--right {
+      min-height: 277px;
+   }
 
-    .side-controls--left .bpm-control,
-    .side-controls--right .volume-control {
-       height: 180px;
-    }
+   .side-controls--left .bpm-control,
+   .side-controls--right .volume-control {
+      height: 180px;
+   }
 
-    .side-controls--left .metronome-toggle,
-    .side-controls--right .loop-toggle {
-       height: 65px;
-       font-size: 0.625rem;
-    }
- }
+   .side-controls--left .metronome-toggle,
+   .side-controls--right .loop-toggle {
+      height: 65px;
+      font-size: 0.625rem;
+   }
+}
 
- @media (max-width: 768px) {
-    .workspace {
-       gap: 0.625rem;
-    }
+@media (max-width: 768px) {
+   .workspace {
+      gap: 0.625rem;
+   }
 
-    .keys {
-       gap: 0.5625rem;
-       padding: 0.875rem;
-       max-width: 340px;
-    }
+   .keys {
+      gap: 0.5625rem;
+      padding: 0.875rem;
+      max-width: 340px;
+   }
 
-    .key {
-       font-size: clamp(1rem, 3.5vw, 1.375rem);
-    }
+   .key {
+      font-size: clamp(1rem, 3.5vw, 1.375rem);
+   }
 
-    .side-controls--left,
-    .side-controls--right {
-       min-height: 252px;
-    }
+   .side-controls--left,
+   .side-controls--right {
+      min-height: 252px;
+   }
 
-    .side-controls--left .bpm-control,
-    .side-controls--right .volume-control {
-       height: 160px;
-    }
+   .side-controls--left .bpm-control,
+   .side-controls--right .volume-control {
+      height: 160px;
+   }
 
-    .side-controls--left .metronome-toggle,
-    .side-controls--right .loop-toggle {
-       height: 60px;
-       font-size: 0.5625rem;
-    }
- }
+   .side-controls--left .metronome-toggle,
+   .side-controls--right .loop-toggle {
+      height: 60px;
+      font-size: 0.5625rem;
+   }
+}
 
- @media (max-width: 600px) {
+@media (max-width: 600px) {
    .keys {
       gap: 0.625rem;
       padding: 0.875rem;
       max-width: 100%;
 
-      .key {
+      & .key {
          border-radius: var(--radius-md);
       }
    }

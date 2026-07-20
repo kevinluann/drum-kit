@@ -13,13 +13,13 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.04);
    margin-top: 1.5rem;
 
-   .composer-timeline {
+   & .composer-timeline {
       width: 100%;
       order: -1;
       margin-bottom: 0.375rem;
    }
 
-   .note-info {
+   & .note-info {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -27,13 +27,13 @@
       margin-bottom: 0.5rem;
    }
 
-   .note-info-center {
+   & .note-info-center {
       display: flex;
       align-items: center;
       gap: 0.5rem;
    }
 
-   .note-count {
+   & .note-count {
       color: var(--accent-primary);
       font-size: 0.75rem;
       font-weight: 600;
@@ -41,7 +41,7 @@
       letter-spacing: 0.1em;
    }
 
-   .duration-display {
+   & .duration-display {
       color: var(--accent-secondary);
       font-size: 0.75rem;
       font-weight: 600;
@@ -49,12 +49,12 @@
       letter-spacing: 0.1em;
    }
 
-   .note-separator {
+   & .note-separator {
       color: var(--text-secondary);
       font-size: 0.5rem;
    }
 
-   .zoom-btn {
+   & .zoom-btn {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -98,7 +98,7 @@
       }
    }
 
-   .timeline-track {
+   & .timeline-track {
       position: relative;
       height: 36px;
       background: linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
@@ -131,7 +131,7 @@
       }
    }
 
-   .timeline-empty {
+   & .timeline-empty {
       position: absolute;
       top: 0;
       left: 0;
@@ -143,7 +143,7 @@
       background: var(--bg-tertiary);
       z-index: 1;
 
-      .timeline-empty-text {
+      & .timeline-empty-text {
          font-size: 0.875rem;
          color: var(--border-color);
          font-weight: 300;
@@ -151,7 +151,7 @@
       }
    }
 
-   .timeline-notes {
+   & .timeline-notes {
       display: flex;
       gap: 0.25rem;
       position: relative;
@@ -160,7 +160,7 @@
       transform-origin: left center;
    }
 
-   .timeline-note {
+   & .timeline-note {
       width: 26px;
       height: 26px;
       border-radius: 4px;
@@ -202,7 +202,7 @@
       }
    }
 
-   .timeline-space {
+   & .timeline-space {
       width: 12px;
       height: 20px;
       border-radius: 3px;
@@ -230,7 +230,7 @@
       }
    }
 
-   input {
+   & input {
       flex: 1;
       min-width: 200px;
       padding: 0.75rem 1rem;
@@ -285,116 +285,116 @@
       }
    }
 
-    button {
-       padding: 0.75rem 1.5rem;
-       font-size: 0.8125rem;
-       font-weight: 700;
-       border: 1px solid var(--accent-primary);
-       border-radius: var(--radius-sm);
-       background: var(--bg-tertiary);
-       color: var(--accent-primary);
-       cursor: pointer;
-       transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.05s ease;
-       text-transform: uppercase;
-       letter-spacing: 0.05em;
-       box-shadow: var(--shadow-sm);
+   & button {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      border: 1px solid var(--accent-primary);
+      border-radius: var(--radius-sm);
+      background: var(--bg-tertiary);
+      color: var(--accent-primary);
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.05s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: var(--shadow-sm);
 
-       &:hover {
-          background: linear-gradient(180deg, var(--accent-primary) 0%, #d65f10 100%);
-          color: #1a0d00;
-          box-shadow: 0 4px 14px var(--accent-primary-glow);
-       }
+      &:hover {
+         background: linear-gradient(180deg, var(--accent-primary) 0%, #d65f10 100%);
+         color: #1a0d00;
+         box-shadow: 0 4px 14px var(--accent-primary-glow);
+      }
 
-       &:active {
-          transform: translateY(1px);
-       }
+      &:active {
+         transform: translateY(1px);
+      }
 
-       &.clicked {
-          background: linear-gradient(180deg, var(--accent-primary) 0%, #d65f10 100%);
-          color: #1a0d00;
-          transform: translateY(1px);
-       }
+      &.clicked {
+         background: linear-gradient(180deg, var(--accent-primary) 0%, #d65f10 100%);
+         color: #1a0d00;
+         transform: translateY(1px);
+      }
 
-       &:disabled {
-          opacity: 0.45;
-          cursor: default;
-          border-color: var(--border-light);
-          color: var(--text-tertiary);
-          background: var(--bg-tertiary);
-          box-shadow: none;
+      &:disabled {
+         opacity: 0.45;
+         cursor: default;
+         border-color: var(--border-light);
+         color: var(--text-tertiary);
+         background: var(--bg-tertiary);
+         box-shadow: none;
 
-          &:hover {
-             background: var(--bg-tertiary);
-             color: var(--text-tertiary);
-             box-shadow: none;
-          }
-       }
-    }
+         &:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-tertiary);
+            box-shadow: none;
+         }
+      }
+   }
 
-    #stopBtn {
-       padding: 0.75rem 1.5rem;
-       font-size: 0.8125rem;
-       font-weight: 700;
-       border: 1px solid var(--danger);
-       border-radius: var(--radius-sm);
-       background: var(--bg-tertiary);
-       color: var(--danger);
-       cursor: pointer;
-       transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.05s ease;
-       text-transform: uppercase;
-       letter-spacing: 0.05em;
-       box-shadow: var(--shadow-sm);
+   & #stopBtn {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      border: 1px solid var(--danger);
+      border-radius: var(--radius-sm);
+      background: var(--bg-tertiary);
+      color: var(--danger);
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.05s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: var(--shadow-sm);
 
-       &:hover {
-          background: var(--danger);
-          color: #fff;
-          box-shadow: 0 4px 14px rgba(255, 77, 94, 0.4);
-       }
+      &:hover {
+         background: var(--danger);
+         color: #fff;
+         box-shadow: 0 4px 14px rgba(255, 77, 94, 0.4);
+      }
 
-       &:active {
-          transform: translateY(1px);
-       }
+      &:active {
+         transform: translateY(1px);
+      }
 
-       &.clicked {
-          background: var(--danger);
-          color: #fff;
-          transform: translateY(1px);
-       }
+      &.clicked {
+         background: var(--danger);
+         color: #fff;
+         transform: translateY(1px);
+      }
 
-       &:disabled {
-          opacity: 0.45;
-          cursor: default;
-          border-color: var(--border-light);
-          color: var(--text-tertiary);
-          background: var(--bg-tertiary);
-          box-shadow: none;
+      &:disabled {
+         opacity: 0.45;
+         cursor: default;
+         border-color: var(--border-light);
+         color: var(--text-tertiary);
+         background: var(--bg-tertiary);
+         box-shadow: none;
 
-          &:hover {
-             background: var(--bg-tertiary);
-             color: var(--text-tertiary);
-             box-shadow: none;
-          }
-       }
-    }
+         &:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-tertiary);
+            box-shadow: none;
+         }
+      }
+   }
 
-    .input-wrapper {
-       flex: 1;
-       display: flex;
-       align-items: center;
-       min-width: 200px;
-       border: 1px solid var(--border-light);
-       border-radius: var(--radius-sm);
-       background: var(--bg-tertiary);
-       transition: border-color 0.2s ease, box-shadow 0.2s ease;
+   & .input-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      min-width: 200px;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      background: var(--bg-tertiary);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
-       &:focus-within {
-          border-color: var(--accent-primary);
-          box-shadow: 0 0 0 2px var(--accent-primary-glow);
-       }
+      &:focus-within {
+         border-color: var(--accent-primary);
+         box-shadow: 0 0 0 2px var(--accent-primary-glow);
+      }
 
-       &:hover {
-          border-color: var(--accent-primary);
-       }
+      &:hover {
+         border-color: var(--accent-primary);
+      }
 
       &:has(input:disabled) {
          opacity: 0.5;
@@ -405,13 +405,13 @@
          }
       }
 
-       #randomBtn,
-       #reverseBtn {
-          flex-shrink: 0;
-          width: 40px;
-          transition: opacity 0.3s ease, width 0.3s ease, min-width 0.3s ease, padding 0.3s ease, margin 0.3s ease !important;
-          border-radius: var(--radius-sm);
-       }
+      & #randomBtn,
+      & #reverseBtn {
+         flex-shrink: 0;
+         width: 40px;
+         transition: opacity 0.3s ease, width 0.3s ease, min-width 0.3s ease, padding 0.3s ease, margin 0.3s ease !important;
+         border-radius: var(--radius-sm);
+      }
 
       &.expanded #randomBtn,
       &.expanded #reverseBtn {
@@ -424,7 +424,7 @@
          overflow: hidden;
       }
 
-      input {
+      & input {
          flex: 1;
          min-width: 0;
          border: none;
@@ -441,7 +441,7 @@
       }
    }
 
-   #randomBtn {
+   & #randomBtn {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -482,7 +482,7 @@
       }
    }
 
-   #reverseBtn {
+   & #reverseBtn {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -528,65 +528,65 @@
       }
    }
 
-    @media (max-width: 768px) {
-       padding: 0.875rem;
-       gap: 0.5rem;
-       margin-top: 1rem;
+   @media (max-width: 768px) {
+      padding: 0.875rem;
+      gap: 0.5rem;
+      margin-top: 1rem;
 
-       .timeline-track {
-          height: 32px;
-       }
+      & .timeline-track {
+         height: 32px;
+      }
 
-       .timeline-note {
-          width: 24px;
-          height: 24px;
-          font-size: 0.5625rem;
-       }
+      & .timeline-note {
+         width: 24px;
+         height: 24px;
+         font-size: 0.5625rem;
+      }
 
-       .timeline-space {
-          width: 10px;
-          height: 18px;
-       }
+      & .timeline-space {
+         width: 10px;
+         height: 18px;
+      }
 
-       input {
-          padding: 0.625rem 0.875rem;
-          font-size: 0.8125rem;
-          min-width: 160px;
-       }
+      & input {
+         padding: 0.625rem 0.875rem;
+         font-size: 0.8125rem;
+         min-width: 160px;
+      }
 
-       button {
-          padding: 0.625rem 1.25rem;
-          font-size: 0.75rem;
-       }
+      & button {
+         padding: 0.625rem 1.25rem;
+         font-size: 0.75rem;
+      }
 
-       #stopBtn {
-          padding: 0.625rem 1.25rem;
-          font-size: 0.75rem;
-       }
+      & #stopBtn {
+         padding: 0.625rem 1.25rem;
+         font-size: 0.75rem;
+      }
 
-       .input-wrapper {
-          min-width: 160px;
-       }
-    }
+      & .input-wrapper {
+         min-width: 160px;
+      }
+   }
 
-    @media (max-width: 600px) {
-       padding: 0.875rem;
-       gap: 0.625rem;
-       flex-direction: column;
-       margin-top: 0.75rem;
+   @media (max-width: 600px) {
+      padding: 0.875rem;
+      gap: 0.625rem;
+      flex-direction: column;
+      margin-top: 0.75rem;
 
-       .input-wrapper,
-       button {
-          width: 100%;
-       }
+      & .input-wrapper,
+      & button {
+         width: 100%;
+      }
 
-       .input-wrapper input {
-          padding: 0.75rem 0.875rem;
-          font-size: 0.9375rem;
-       }
+      & .input-wrapper input {
+         padding: 0.75rem 0.875rem;
+         font-size: 0.9375rem;
+      }
 
-       button {
-          padding: 0.75rem 1.5rem;
-       }
-    }
+      & button {
+         padding: 0.75rem 1.5rem;
+      }
+   }
 }

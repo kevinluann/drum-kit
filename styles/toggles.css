@@ -1,97 +1,157 @@
-/* ===== Botão de Loop ===== */
-.loop-toggle {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   cursor: pointer;
-   user-select: none;
-   padding: 0.625rem 0.5rem;
-   background: linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
-   border: 1px solid var(--border-light);
-   border-radius: var(--radius-md);
-   transition: all 0.15s ease;
-   box-shadow: var(--shadow-sm);
-   width: 56px;
-   height: 80px;
-   font-size: 0.6875rem;
-   font-weight: 700;
-   text-transform: uppercase;
-   letter-spacing: 0.1em;
-   color: var(--text-secondary);
-   text-align: center;
-   font-family: inherit;
-   writing-mode: vertical-rl;
-   text-orientation: upright;
+/* =====================================================
+   TOGGLES — botões táteis com LED indicador
+   Loop (laranja) · Metrônomo (verde) · estilo push-button
+   ===================================================== */
 
-   &:hover {
-      border-color: var(--accent-primary);
-      color: var(--accent-primary);
-      background: var(--surface-color);
-      box-shadow: 0 3px 10px var(--accent-primary-glow);
-   }
-
-   &.active {
-      background: linear-gradient(180deg, var(--accent-primary) 0%, #d65f10 100%);
-      border-color: var(--accent-primary);
-      color: #1a0d00;
-      box-shadow:
-         0 4px 16px var(--accent-primary-glow),
-         inset 0 1px 0 rgba(255, 255, 255, 0.2);
-   }
-}
-
-/* ===== Botão Metrônomo ===== */
+.loop-toggle,
 .metronome-toggle {
    display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: center;
+   gap: 0.4375rem;
    cursor: pointer;
    user-select: none;
    padding: 0.625rem 0.5rem;
-   background: linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
-   border: 1px solid var(--border-light);
-   border-radius: var(--radius-md);
-   transition: all 0.15s ease;
-   box-shadow: var(--shadow-sm);
-   width: 56px;
-   height: 80px;
-   font-size: 0.6875rem;
+   background:
+      var(--texture-brushed),
+      linear-gradient(180deg, var(--surface-color) 0%, var(--bg-tertiary) 50%, var(--bg-secondary) 100%);
+   border: 1px solid var(--border-cut);
+   border-radius: var(--radius-sm);
+   transition: all 0.16s cubic-bezier(0.2, 0.8, 0.3, 1);
+   box-shadow:
+      inset 0 0 0 1px var(--border-color),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 2px 6px rgba(0, 0, 0, 0.5);
+   width: 64px;
+   height: 76px;
+   font-family: var(--font-mono);
+   font-size: 0.5rem;
    font-weight: 700;
    text-transform: uppercase;
-   letter-spacing: 0.1em;
    color: var(--text-secondary);
+   letter-spacing: 0.14em;
+   position: relative;
+   overflow: hidden;
+}
+
+.toggle-led {
+   width: 9px;
+   height: 9px;
+   border-radius: 50%;
+   background: rgba(40, 28, 16, 0.8);
+   box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.5),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.5),
+      inset 0 1px 1px rgba(255, 255, 255, 0.05);
+   transition: all 0.18s ease;
+   flex-shrink: 0;
+}
+
+.toggle-label {
+   font-size: 0.5625rem;
+   line-height: 1;
    text-align: center;
-   font-family: inherit;
-   writing-mode: vertical-rl;
-   text-orientation: upright;
+}
 
-   &:hover {
-      border-color: var(--accent-secondary);
-      color: var(--accent-secondary);
-      background: var(--surface-color);
-      box-shadow: 0 3px 10px var(--accent-secondary-glow);
-   }
+/* === Hover — boto recebendo incidência de luz === */
+.loop-toggle:hover,
+.metronome-toggle:hover {
+   background:
+      var(--texture-brushed),
+      linear-gradient(180deg, var(--surface-raised) 0%, var(--surface-color) 50%, var(--bg-tertiary) 100%);
+   box-shadow:
+      inset 0 0 0 1px var(--border-strong),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 3px 10px rgba(0, 0, 0, 0.55);
+   color: var(--text-primary);
+}
 
-   &.active {
-      background: linear-gradient(180deg, var(--accent-secondary) 0%, #14a85e 100%);
-      border-color: var(--accent-secondary);
-      color: #04240f;
+.loop-toggle:hover .toggle-led {
+   background: rgba(255, 122, 26, 0.6);
+   box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.4),
+      0 0 6px var(--accent-glow-soft);
+}
+
+.metronome-toggle:hover .toggle-led {
+   background: rgba(89, 255, 154, 0.6);
+   box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.4),
+      0 0 6px var(--led-green-soft);
+}
+
+/* === Estado ativo — LED aceso e botão apertado === */
+.loop-toggle:active,
+.metronome-toggle:active {
+   transform: translateY(1px);
+   box-shadow:
+      inset 0 0 0 1px var(--border-color),
+      inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.loop-toggle.active {
+   background:
+      var(--texture-brushed),
+      linear-gradient(180deg, #2a1a0a 0%, #1a1108 50%, #0d0703 100%);
+   border-color: var(--accent-deep);
+   box-shadow:
+      inset 0 0 0 1px var(--accent-deep),
+      inset 0 2px 4px rgba(0, 0, 0, 0.5),
+      0 0 14px var(--accent-glow-soft);
+   color: var(--accent-ember);
+
+   & .toggle-led {
+      background: var(--accent-primary);
       box-shadow:
-         0 4px 16px var(--accent-secondary-glow),
-         inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+         0 0 6px var(--accent-glow),
+         0 0 14px var(--accent-glow),
+         0 0 22px var(--accent-glow-soft),
+         inset 0 -1px 1px rgba(0, 0, 0, 0.3);
+      animation: ledPulse 2s ease-in-out infinite;
    }
 }
 
-/* Input inline do metrônomo */
+.metronome-toggle.active {
+   background:
+      var(--texture-brushed),
+      linear-gradient(180deg, #06210e 0%, #041a08 50%, #0a0d10 100%);
+   border-color: rgba(89, 255, 154, 0.3);
+   box-shadow:
+      inset 0 0 0 1px rgba(89, 255, 154, 0.25),
+      inset 0 2px 4px rgba(0, 0, 0, 0.5),
+      0 0 14px var(--led-green-soft);
+   color: var(--led-green);
+
+   & .toggle-led {
+      background: var(--led-green);
+      box-shadow:
+         0 0 6px var(--led-green-soft),
+         0 0 14px var(--led-green-soft),
+         0 0 22px rgba(89, 255, 154, 0.2),
+         inset 0 -1px 1px rgba(0, 0, 0, 0.3);
+      animation: ledPulse 1s ease-in-out infinite;
+   }
+}
+
+@keyframes ledPulse {
+
+   0%,
+   100% {
+      opacity: 1;
+   }
+
+   50% {
+      opacity: 0.7;
+   }
+}
+
+/* === Input inline do metrônomo === */
 .metronome-bpm-inline {
    display: none;
    width: 100%;
    justify-content: center;
-   margin-top: -0.625rem;
+   margin-top: -0.5rem;
 
    &.visible {
       display: flex;
@@ -101,21 +161,25 @@
 .metronome-bpm-inline-input {
    width: 100%;
    padding: 0.375rem 0;
-   background: var(--bg-secondary);
-   border: 1px solid var(--border-color);
+   background:
+      linear-gradient(180deg, #06150a 0%, #030c06 100%);
+   border: 1px solid rgba(89, 255, 154, 0.2);
    border-top: none;
-   border-radius: 0 0 var(--radius-md) var(--radius-md);
-   color: var(--accent-secondary);
-   font-size: 0.75rem;
+   border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+   color: var(--led-green);
+   font-family: var(--font-mono);
+   font-size: 0.6875rem;
    font-weight: 700;
-   font-family: 'Inter', monospace;
    text-align: center;
    outline: none;
-   transition: border-color 0.2s ease, color 0.2s ease;
+   text-shadow: 0 0 6px var(--led-green-soft);
+   transition: border-color 0.18s ease, color 0.18s ease;
+   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
 
    &:focus {
-      border-color: var(--accent-secondary);
-      color: #3ee89a;
+      border-color: var(--led-green);
+      color: #aaffcc;
+      text-shadow: 0 0 10px var(--led-green-soft);
    }
 
    &::-webkit-outer-spin-button,
@@ -125,31 +189,31 @@
    }
 }
 
-/* ===== Breakpoints responsivos - toggles ===== */
+/* === Breakpoints === */
 @media (max-width: 900px) {
+
    .loop-toggle,
    .metronome-toggle {
-      width: 54px;
-      height: 55px;
-      font-size: 0.625rem;
+      width: 58px;
+      height: 64px;
+      font-size: 0.4375rem;
    }
 
-   .metronome-toggle {
-      writing-mode: vertical-rl;
-      text-orientation: upright;
+   .toggle-led {
+      width: 8px;
+      height: 8px;
+   }
+
+   .toggle-label {
+      font-size: 0.5rem;
    }
 }
 
 @media (max-width: 768px) {
+
    .loop-toggle,
    .metronome-toggle {
-      width: 52px;
-      height: 55px;
-      font-size: 0.625rem;
-   }
-
-   .metronome-toggle {
-      writing-mode: vertical-rl;
-      text-orientation: upright;
+      width: 54px;
+      height: 58px;
    }
 }

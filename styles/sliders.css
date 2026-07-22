@@ -1,4 +1,9 @@
-/* ===== Controles de Volume e BPM (sliders verticais) ===== */
+/* =====================================================
+   CONTROLES — Sliders verticais em trilho
+   Volume / BPM — estilo mesa de som industrial (âmbar LED)
+   ===================================================== */
+
+/* === Caixa do módulo (borda metálica embutida) === */
 .volume-control,
 .bpm-control {
    position: relative;
@@ -6,54 +11,120 @@
    flex-direction: column;
    align-items: center;
    justify-content: space-between;
-   padding: 0.625rem 0.5rem;
-   background: linear-gradient(180deg, var(--bg-secondary) 0%, rgba(20, 23, 28, 0.85) 100%);
-   border: 1px solid var(--border-color);
-   border-radius: var(--radius-md);
+   padding: 0.625rem 0.5rem 0.75rem;
+   background:
+      var(--texture-brushed),
+      linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-secondary) 60%, var(--bg-primary) 100%);
+   border: 1px solid var(--border-cut);
+   border-radius: var(--radius-sm);
    box-shadow:
-      var(--shadow-md),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04);
-   width: 56px;
-   height: 200px;
-
-   & .volume-label,
-   & .bpm-label {
-      color: var(--text-tertiary);
-      font-size: 0.625rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-   }
-
-   & .volume-value,
-   & .bpm-value {
-      font-size: 0.75rem;
-      font-weight: 700;
-      font-family: 'Inter', monospace;
-      letter-spacing: 0.02em;
-   }
-
-   & .volume-value {
-      color: var(--accent-primary);
-   }
-
-   & .bpm-value {
-      color: var(--accent-secondary);
-   }
-
-   & .volume-slider-wrapper,
-   & .bpm-slider-wrapper {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-   }
+      inset 0 0 0 1px var(--border-color),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      var(--shadow-md);
+   width: 64px;
+   height: 224px;
 }
 
-/* Sliders verticais rotacionados - compartilhados entre volume e BPM */
-.volume-control input[type="range"],
-.bpm-control input[type="range"] {
+/* === Readout (display de valor) === */
+.bpm-display,
+.control-readout {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 0.125rem;
+   padding: 0.375rem 0.5rem 0.5rem;
+   width: 100%;
+   background:
+      linear-gradient(180deg, #0a0200 0%, #180a02 100%);
+   border: 1px solid var(--border-cut);
+   border-radius: var(--radius-xs);
+   box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.8),
+      inset 0 0 0 1px rgba(255, 122, 26, 0.06);
+   position: relative;
+   flex-shrink: 0;
+}
+
+.bpm-display::before,
+.control-readout::before {
+   content: '';
+   position: absolute;
+   inset: 2px;
+   border-radius: 2px;
+   background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 2px);
+   pointer-events: none;
+   opacity: 0.4;
+}
+
+.bpm-value,
+.volume-value {
+   font-family: var(--font-mono);
+   font-size: 1rem;
+   font-weight: 800;
+   color: var(--accent-primary);
+   text-shadow:
+      0 0 6px var(--accent-glow),
+      0 0 12px var(--accent-glow-soft);
+   letter-spacing: 0.04em;
+   position: relative;
+   z-index: 1;
+   background: none;
+   line-height: 1;
+   text-align: center;
+}
+
+.control-label,
+.bpm-unit {
+   font-family: var(--font-mono);
+   font-size: 0.4375rem;
+   font-weight: 700;
+   color: var(--accent-deep);
+   text-transform: uppercase;
+   letter-spacing: 0.2em;
+   position: relative;
+   z-index: 1;
+}
+
+/* === Trilho vertical (slider rotacionado) === */
+.slider-rail {
+   flex: 1;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   padding: 0.5rem 0;
+   position: relative;
+}
+
+/* Linhas de escala ao lado do trilho (ticks) */
+.slider-rail::before,
+.slider-rail::after {
+   content: '';
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   width: 2px;
+   height: 140px;
+   transform: translate(-50%, -50%) rotate(90deg);
+   background:
+      repeating-linear-gradient(90deg,
+         transparent 0 6px,
+         rgba(255, 122, 26, 0.14) 6px 7px);
+   pointer-events: none;
+   -webkit-mask: linear-gradient(180deg, transparent, black 15%, black 85%, transparent);
+   mask: linear-gradient(180deg, transparent, black 15%, black 85%, transparent);
+}
+
+.slider-rail::before {
+   margin-left: -16px;
+}
+
+.slider-rail::after {
+   margin-left: 16px;
+}
+
+/* === Slider vertical rotacionado === */
+.slider-rail input[type="range"] {
    width: 150px;
    height: 6px;
    -webkit-appearance: none;
@@ -61,205 +132,166 @@
    background: transparent;
    cursor: pointer;
    transform: rotate(-90deg);
+   -webkit-transform: rotate(-90deg);
+   position: relative;
+   z-index: 2;
 
    &::-webkit-slider-runnable-track {
       width: 100%;
       height: 6px;
-      background: var(--bg-tertiary);
+      background:
+         linear-gradient(180deg, #06080a 0%, #14171d 100%);
       border-radius: 3px;
-      border: 1px solid var(--border-light);
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-cut);
+      box-shadow:
+         inset 0 1px 3px rgba(0, 0, 0, 0.7),
+         inset 0 0 0 1px var(--border-color);
    }
 
    &::-moz-range-track {
       width: 100%;
       height: 6px;
-      background: var(--bg-tertiary);
+      background: linear-gradient(180deg, #06080a 0%, #14171d 100%);
       border-radius: 3px;
-      border: 1px solid var(--border-light);
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-cut);
+      box-shadow:
+         inset 0 1px 3px rgba(0, 0, 0, 0.7),
+         inset 0 0 0 1px var(--border-color);
    }
 
    &:hover::-webkit-slider-runnable-track {
-      border-color: var(--border-strong);
+      border-color: var(--accent-deep);
+      box-shadow:
+         inset 0 1px 3px rgba(0, 0, 0, 0.7),
+         0 0 0 1px var(--accent-glow-soft);
    }
 
    &:hover::-moz-range-track {
-      border-color: var(--border-strong);
+      border-color: var(--accent-deep);
+      box-shadow:
+         inset 0 1px 3px rgba(0, 0, 0, 0.7),
+         0 0 0 1px var(--accent-glow-soft);
    }
 }
 
-/* Thumb laranja (volume) */
-.volume-control input[type="range"] {
+/* === Thumb — capsula metálica com LED âmbar === */
+.slider-rail input[type="range"] {
    &::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 20px;
+      width: 22px;
       height: 14px;
-      background: linear-gradient(to bottom, var(--accent-primary), #d65f10);
+      background:
+         linear-gradient(180deg, var(--accent-bright) 0%, var(--accent-primary) 45%, var(--accent-deep) 100%);
       border-radius: 3px;
       cursor: pointer;
-      margin-top: -4px;
+      margin-top: -5px;
+      border: 1px solid var(--border-cut);
       box-shadow:
-         0 2px 6px rgba(0, 0, 0, 0.5),
-         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      transition: box-shadow 0.2s ease, background 0.2s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+         0 2px 6px rgba(0, 0, 0, 0.6),
+         0 0 8px var(--accent-glow),
+         inset 0 1px 0 rgba(255, 230, 180, 0.4),
+         inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+      transition: box-shadow 0.16s ease, filter 0.16s ease;
    }
 
    &::-moz-range-thumb {
-      width: 20px;
+      width: 22px;
       height: 14px;
-      background: linear-gradient(to bottom, var(--accent-primary), #d65f10);
+      background: linear-gradient(180deg, var(--accent-bright) 0%, var(--accent-primary) 45%, var(--accent-deep) 100%);
       border-radius: 3px;
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-cut);
       box-shadow:
-         0 2px 6px rgba(0, 0, 0, 0.5),
-         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      transition: box-shadow 0.2s ease, background 0.2s ease;
+         0 2px 6px rgba(0, 0, 0, 0.6),
+         0 0 8px var(--accent-glow),
+         inset 0 1px 0 rgba(255, 230, 180, 0.4),
+         inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+      transition: box-shadow 0.16s ease, filter 0.16s ease;
    }
 
    &:hover::-webkit-slider-thumb {
-      background: linear-gradient(to bottom, #ff8a35, var(--accent-primary));
+      filter: brightness(1.15);
       box-shadow:
-         0 3px 10px var(--accent-primary-glow),
-         inset 0 1px 0 rgba(255, 255, 255, 0.3);
+         0 3px 10px rgba(0, 0, 0, 0.6),
+         0 0 14px var(--accent-glow),
+         0 0 22px var(--accent-glow-soft),
+         inset 0 1px 0 rgba(255, 240, 200, 0.5),
+         inset 0 -1px 2px rgba(0, 0, 0, 0.4);
    }
 
    &:hover::-moz-range-thumb {
-      background: linear-gradient(to bottom, #ff8a35, var(--accent-primary));
+      filter: brightness(1.15);
       box-shadow:
-         0 3px 10px var(--accent-primary-glow),
-         inset 0 1px 0 rgba(255, 255, 255, 0.3);
+         0 3px 10px rgba(0, 0, 0, 0.6),
+         0 0 14px var(--accent-glow),
+         0 0 22px var(--accent-glow-soft),
+         inset 0 1px 0 rgba(255, 240, 200, 0.5),
+         inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+   }
+
+   &:active::-webkit-slider-thumb {
+      filter: brightness(1.25);
+   }
+
+   &:active::-moz-range-thumb {
+      filter: brightness(1.25);
    }
 }
 
-/* Thumb verde (BPM) */
-.bpm-control input[type="range"] {
+/* === Estado desativado (durante playback) === */
+.slider-rail input[type="range"]:disabled {
+   opacity: 0.4;
+   cursor: default;
+
+   &::-webkit-slider-runnable-track,
+   &::-moz-range-track {
+      border-color: var(--border-light);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+   }
+
    &::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 20px;
-      height: 14px;
-      background: linear-gradient(to bottom, var(--accent-secondary), #14a85e);
-      border-radius: 3px;
-      cursor: pointer;
-      margin-top: -4px;
-      box-shadow:
-         0 2px 6px rgba(0, 0, 0, 0.5),
-         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      transition: box-shadow 0.2s ease, background 0.2s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(180deg, #2a2e37, #1a1d22);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
    }
 
    &::-moz-range-thumb {
-      width: 20px;
-      height: 14px;
-      background: linear-gradient(to bottom, var(--accent-secondary), #14a85e);
-      border-radius: 3px;
-      cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow:
-         0 2px 6px rgba(0, 0, 0, 0.5),
-         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      transition: box-shadow 0.2s ease, background 0.2s ease;
-   }
-
-   &:hover::-webkit-slider-thumb {
-      background: linear-gradient(to bottom, #3ee89a, var(--accent-secondary));
-      box-shadow:
-         0 3px 10px var(--accent-secondary-glow),
-         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-   }
-
-   &:hover::-moz-range-thumb {
-      background: linear-gradient(to bottom, #3ee89a, var(--accent-secondary));
-      box-shadow:
-         0 3px 10px var(--accent-secondary-glow),
-         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-   }
-
-   &:disabled {
-      opacity: 0.4;
-      cursor: default;
-
-      &::-webkit-slider-runnable-track {
-         border-color: var(--border-light);
-         background: var(--bg-tertiary);
-      }
-
-      &::-moz-range-track {
-         border-color: var(--border-light);
-         background: var(--bg-tertiary);
-      }
-
-      &::-webkit-slider-thumb {
-         background: var(--border-color);
-         box-shadow: none;
-      }
-
-      &::-moz-range-thumb {
-         background: var(--border-color);
-         box-shadow: none;
-      }
+      background: linear-gradient(180deg, #2a2e37, #1a1d22);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
    }
 }
 
 .bpm-control:has(input:disabled) {
-   & .bpm-label,
    & .bpm-value {
-      opacity: 0.4;
+      opacity: 0.35;
+      color: var(--accent-deep);
+      text-shadow: none;
    }
 }
 
-/* Valor BPM clicável - dropdown de presets */
-.bpm-value.clickable {
-   cursor: pointer;
-   border-radius: var(--radius-sm);
-   padding: 0.125rem 0.375rem;
-   text-decoration: underline;
-   text-decoration-color: var(--accent-secondary);
-   text-underline-offset: 2px;
-   transition: background 0.15s ease, color 0.15s ease;
-   user-select: none;
-
-   &:hover {
-      color: var(--text-primary);
-      background: var(--bg-tertiary);
-   }
-
-   &:focus {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-   }
-
-   &.disabled {
-      cursor: default;
-      opacity: 0.4;
-      pointer-events: none;
-      text-decoration: none;
-   }
-}
-
-/* Dropdown de presets BPM - aparece ao lado do controle */
+/* === Dropdown de presets BPM (sob o slider do BPM) === */
 .bpm-dropdown {
    visibility: hidden;
    position: absolute;
    top: 50%;
    right: calc(100% + 0.5rem);
-   transform: translateY(-50%) translateX(4px);
-   background: var(--bg-tertiary);
-   border: 1px solid var(--border-light);
-   border-radius: var(--radius-md);
+   transform: translateY(-50%) translateX(6px);
+   background:
+      var(--texture-brushed),
+      linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+   border: 1px solid var(--border-cut);
+   border-radius: var(--radius-sm);
    padding: 0.375rem;
    gap: 0.25rem;
    min-width: 56px;
    z-index: 50;
    opacity: 0;
    pointer-events: none;
-   transition: opacity 0.15s ease, transform 0.15s ease;
-   box-shadow: var(--shadow-lg);
+   transition: opacity 0.18s ease, transform 0.18s ease;
+   box-shadow:
+      inset 0 0 0 1px var(--border-color),
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      var(--shadow-lg);
    display: flex;
    flex-direction: column;
 
@@ -272,95 +304,154 @@
 }
 
 .bpm-preset {
-   background: var(--bg-secondary);
+   background: linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
    border: 1px solid var(--border-light);
-   border-radius: var(--radius-sm);
+   border-radius: var(--radius-xs);
    color: var(--text-secondary);
-   font-size: 0.75rem;
-   font-weight: 600;
+   font-family: var(--font-mono);
+   font-size: 0.6875rem;
+   font-weight: 700;
    cursor: pointer;
-   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+   transition: all 0.16s ease;
    padding: 0.375rem 0.5rem;
    text-align: center;
+   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 
    &:hover {
-      background: var(--surface-color);
-      border-color: var(--accent-secondary);
-      color: var(--accent-secondary);
+      background: linear-gradient(180deg, var(--accent-primary), var(--accent-deep));
+      border-color: var(--accent-primary);
+      color: #1a0d00;
+      box-shadow:
+         0 0 10px var(--accent-glow),
+         inset 0 1px 0 rgba(255, 255, 255, 0.2);
    }
 
    &:active {
-      transform: scale(0.97);
+      transform: scale(0.96);
    }
 }
 
-/* ===== Breakpoints responsivos - sliders ===== */
+/* === BPM value clicável (display interativo) === */
+.bpm-value.clickable {
+   cursor: pointer;
+   user-select: none;
+   transition: text-shadow 0.16s ease, color 0.16s ease;
+
+   &:hover {
+      color: var(--accent-bright);
+      text-shadow:
+         0 0 8px var(--accent-glow),
+         0 0 16px var(--accent-glow-soft);
+   }
+
+   &:focus {
+      color: var(--accent-bright);
+      text-shadow: 0 0 10px var(--accent-glow);
+   }
+
+   &.disabled {
+      cursor: default;
+      opacity: 0.35;
+      pointer-events: none;
+      color: var(--accent-deep);
+      text-shadow: none;
+   }
+}
+
+/* === Breakpoints === */
 @media (max-width: 900px) {
+
    .volume-control,
    .bpm-control {
-      width: 54px;
-      height: 180px;
-      padding: 0.5rem 0.4rem;
+      width: 58px;
+      height: 200px;
+      padding: 0.625rem 0.4rem 0.75rem;
    }
 
-   .volume-label,
-   .bpm-label {
-      font-size: 0.5625rem;
+   .bpm-value,
+   .volume-value {
+      font-size: 0.875rem;
    }
 
-   .volume-value,
-   .bpm-value {
-      font-size: 0.6875rem;
+   .slider-rail {
+      padding: 0.375rem 0;
    }
 
-   .volume-control input[type="range"],
-   .bpm-control input[type="range"] {
-      width: 125px;
+   .slider-rail input[type="range"] {
+      width: 130px;
+   }
+
+   .slider-rail::before,
+   .slider-rail::after {
+      height: 120px;
+   }
+
+   .slider-rail::before {
+      margin-left: -14px;
+   }
+
+   .slider-rail::after {
+      margin-left: 14px;
    }
 
    .bpm-dropdown {
       min-width: 52px;
       padding: 0.3125rem;
-      gap: 0.1875rem;
    }
 
    .bpm-preset {
-      font-size: 0.6875rem;
+      font-size: 0.625rem;
       padding: 0.3125rem 0.4375rem;
    }
 }
 
 @media (max-width: 768px) {
+
    .volume-control,
    .bpm-control {
-      width: 52px;
-      height: 160px;
-      padding: 0.5rem 0.375rem;
+      width: 54px;
+      height: 180px;
+      padding: 0.5rem 0.375rem 0.625rem;
    }
 
-   .volume-label,
-   .bpm-label {
-      font-size: 0.5625rem;
+   .bpm-value,
+   .volume-value {
+      font-size: 0.8125rem;
    }
 
-   .volume-value,
-   .bpm-value {
-      font-size: 0.6875rem;
+   .slider-rail {
+      padding: 0.25rem 0;
    }
 
-   .volume-control input[type="range"],
-   .bpm-control input[type="range"] {
+   .slider-rail input[type="range"] {
       width: 110px;
+   }
+
+   .slider-rail::before,
+   .slider-rail::after {
+      height: 100px;
+   }
+
+   .slider-rail::before {
+      margin-left: -12px;
+   }
+
+   .slider-rail::after {
+      margin-left: 12px;
+   }
+
+   .control-label,
+   .bpm-unit {
+      font-size: 0.4375rem;
    }
 
    .bpm-dropdown {
       min-width: 48px;
       padding: 0.25rem;
-      gap: 0.125rem;
    }
 
-    .bpm-preset {
-      font-size: 0.625rem;
+   .bpm-preset {
+      font-size: 0.5625rem;
       padding: 0.25rem 0.375rem;
    }
 }
@@ -369,7 +460,6 @@
    .bpm-value.clickable {
       pointer-events: none;
       cursor: default;
-      text-decoration: none;
    }
 
    .bpm-dropdown {

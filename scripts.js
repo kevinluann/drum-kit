@@ -291,7 +291,7 @@ function startMetronome() {
   if (metronomeTimer) {
     stopMetronome()
   }
-  
+
   metronomeTimer = setInterval(() => {
     metronomeAudio.currentTime = 0
     metronomeAudio.play()
@@ -336,12 +336,12 @@ function updateTimeline() {
     reversedButton.classList.remove('active')
     reversedButton.setAttribute('aria-pressed', 'false')
   }
-  
+
   if (notes.length === 0) {
     timelineEmpty.setAttribute('style', 'display: flex')
     return
   }
-  
+
   timelineEmpty.setAttribute('style', 'display: none')
 
   for (let [index, note] of notes.entries()) {
@@ -356,7 +356,7 @@ function updateTimeline() {
       noteElement.setAttribute('data-id', note.id)
       noteElement.setAttribute('data-index', index)
       noteElement.setAttribute('draggable', 'true')
-      
+
       if (note.customBpm) {
         noteElement.classList.add('has-custom-bpm')
       }
@@ -364,7 +364,7 @@ function updateTimeline() {
       if (note.muted) {
         noteElement.classList.add('muted')
       }
-      
+
       timelineNotes.appendChild(noteElement)
     }
   }
@@ -388,7 +388,7 @@ function highlightNote(index) {
 
 function clearTimelineHighlights() {
   const notes = document.querySelectorAll('.timeline-note')
-  
+
   for (let note of notes) {
     note.classList.remove('active')
   }
@@ -434,7 +434,7 @@ function toggleRecording() {
       input.value = recordedNotes.join('')
     }
   }
-  
+
   buildNotesFromInput()
 }
 
@@ -482,10 +482,10 @@ function openBpmEditor(noteId) {
 
 function saveNoteBpm() {
   let bpmValue = parseInt(noteBpmInput.value)
-  
+
   if (bpmValue >= 60 && bpmValue <= 400) {
     const note = notes.find(n => n.id === currentNoteId)
-    
+
     if (note) {
       note.customBpm = bpmValue
     }
@@ -602,7 +602,7 @@ function generateRandomComposition() {
   const length = Math.floor(Math.random() * 16) + 5
   let result = ''
 
-  for (let i =0; i < length; i++) {
+  for (let i = 0; i < length; i++) {
     result += letters[Math.floor(Math.random() * letters.length)]
   }
 
@@ -667,7 +667,7 @@ stopButton.addEventListener('click', () => {
   setTimeout(() => {
     stopButton.classList.remove('clicked')
   }, 100)
-  
+
   stopComposition()
 })
 
@@ -683,7 +683,7 @@ bpmControl.addEventListener('input', () => setBpm())
 
 metronomeToggle.addEventListener('click', () => {
   isMetronomeEnabled = !isMetronomeEnabled
-  
+
   metronomeToggle.classList.toggle('active', isMetronomeEnabled)
   metronomeToggle.setAttribute('aria-pressed', isMetronomeEnabled)
   metronomeBpmInline.classList.toggle('visible', isMetronomeEnabled)
@@ -778,7 +778,7 @@ metronomeBpmInput.addEventListener('blur', () => {
   } else if (value > 400) {
     metronomeBpmInput.value = 400
   }
-  
+
   setMetronomeBpm()
 })
 
@@ -818,7 +818,7 @@ timelineNotes.addEventListener('dragend', (event) => {
 noteBpmRepeat.addEventListener('click', (event) => {
   if (event.target.classList.contains('repeat-btn')) {
     const note = notes.find(n => n.id === currentNoteId)
-    
+
     if (note) {
       note.repeat = parseInt(event.target.dataset.repeat)
     }

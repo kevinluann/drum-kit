@@ -1,4 +1,9 @@
-/* ===== Botão de Gravação (lateral direita, fixo) ===== */
+/* =====================================================
+   PAINÉIS LATERAIS — Rec / Stats
+   Embutidos na lateral do chassis (screw-on)
+   ===================================================== */
+
+/* === Botão de Gravação (lateral direita) === */
 .record-toggle {
    position: fixed;
    top: 6rem;
@@ -8,17 +13,25 @@
    justify-content: center;
    cursor: pointer;
    user-select: none;
-   padding: 0.625rem;
-   background: var(--bg-secondary);
-   border: 1px solid var(--border-light);
+   padding: 0.5rem;
+   background:
+      var(--texture-brushed),
+      linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+   border: 1px solid var(--border-cut);
    border-right: none;
-   border-radius: var(--radius-md) 0 0 var(--radius-md);
-   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
-   width: 40px;
-   height: 40px;
+   border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+   transition: all 0.18s ease;
+   box-shadow:
+      inset 0 0 0 1px var(--border-color),
+      -2px 0 10px rgba(0, 0, 0, 0.5);
+   width: 42px;
+   height: 42px;
    color: var(--text-secondary);
    z-index: 101;
+
+   & svg {
+      stroke: currentColor;
+   }
 
    &::before {
       content: 'Gravar composição';
@@ -26,21 +39,25 @@
       right: 100%;
       top: 50%;
       transform: translateY(-50%) translateX(-8px);
-      margin-right: 0.5rem;
-      padding: 0.5rem 0.75rem;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      font-size: 0.75rem;
-      font-weight: 500;
+      margin-right: 0.625rem;
+      padding: 0.4375rem 0.75rem 0.4375rem 0.875rem;
+      background:
+         var(--texture-brushed),
+         linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+      border: 1px solid var(--border-cut);
+      border-radius: var(--radius-xs);
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      font-weight: 700;
       color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
       white-space: nowrap;
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      transition: opacity 0.18s ease, transform 0.18s ease;
       box-shadow: var(--shadow-md);
-      z-index: 102;
    }
 
    &:hover::before {
@@ -51,52 +68,60 @@
 
    &.recording::before {
       content: 'Gravando... Clique para parar';
-      background: var(--danger);
+      background: linear-gradient(180deg, #ff2a3a 0%, #a01825 100%);
       border-color: var(--danger);
       color: #fff;
+      box-shadow: 0 0 14px var(--danger-glow);
       opacity: 1;
       visibility: visible;
       transform: translateY(-50%) translateX(0);
    }
 
    &:hover {
-      background: var(--surface-color);
+      background:
+         linear-gradient(180deg, #2a0a10 0%, #1a0508 100%);
       border-color: var(--danger);
       color: var(--danger);
+      box-shadow:
+         inset 0 0 0 1px rgba(255, 59, 78, 0.3),
+         -2px 0 14px var(--danger-glow);
    }
 
    &.recording {
-      background: var(--danger);
+      background: linear-gradient(180deg, var(--danger) 0%, #a01627 100%);
       border-color: var(--danger);
       color: #fff;
-      box-shadow: -4px 0 16px rgba(255, 77, 94, 0.4);
-      animation: pulse 1.5s infinite;
+      box-shadow:
+         inset 0 1px 0 rgba(255, 200, 200, 0.2),
+         -4px 0 18px var(--danger-glow);
+      animation: recPulse 1.4s ease-in-out infinite;
    }
 
    &.disabled {
-      opacity: 0.5;
+      opacity: 0.4;
       cursor: default;
 
       &:hover {
          background: var(--bg-secondary);
-         border-color: var(--border-light);
+         border-color: var(--border-cut);
          color: var(--text-secondary);
       }
    }
 }
 
-@keyframes pulse {
-   0%, 100% {
-      opacity: 1;
-      box-shadow: -4px 0 16px rgba(255, 77, 94, 0.4);
+@keyframes recPulse {
+
+   0%,
+   100% {
+      box-shadow: inset 0 1px 0 rgba(255, 200, 200, 0.2), -4px 0 18px var(--danger-glow);
    }
+
    50% {
-      opacity: 0.7;
-      box-shadow: -4px 0 8px rgba(255, 77, 94, 0.3);
+      box-shadow: inset 0 1px 0 rgba(255, 200, 200, 0.2), -4px 0 10px var(--danger-glow);
    }
 }
 
-/* ===== Botão de Estatísticas (lateral esquerda, fixo) ===== */
+/* === Botão de Estatísticas (lateral esquerda) === */
 .stats-toggle {
    position: fixed;
    top: 6rem;
@@ -106,15 +131,19 @@
    justify-content: center;
    cursor: pointer;
    user-select: none;
-   padding: 0.625rem;
-   background: var(--bg-secondary);
-   border: 1px solid var(--border-light);
+   padding: 0;
+   background:
+      var(--texture-brushed),
+      linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+   border: 1px solid var(--border-cut);
    border-left: none;
-   border-radius: 0 var(--radius-md) var(--radius-md) 0;
-   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, left 0.3s ease;
-   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
-   width: 40px;
-   height: 40px;
+   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+   transition: all 0.18s ease;
+   box-shadow:
+      inset 0 0 0 1px var(--border-color),
+      2px 0 10px rgba(0, 0, 0, 0.5);
+   width: 42px;
+   height: 42px;
    color: var(--text-secondary);
    z-index: 102;
 
@@ -124,21 +153,24 @@
       left: 100%;
       top: 50%;
       transform: translateY(-50%) translateX(8px);
-      margin-left: 0.5rem;
-      padding: 0.5rem 0.75rem;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      font-size: 0.75rem;
-      font-weight: 500;
+      margin-left: 0.625rem;
+      padding: 0.4375rem 0.875rem 0.4375rem 0.75rem;
+      background:
+         var(--texture-brushed),
+         linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+      border: 1px solid var(--border-cut);
+      border-radius: var(--radius-xs);
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      font-weight: 700;
       color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
       white-space: nowrap;
       opacity: 0;
       visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      transition: opacity 0.18s ease, transform 0.18s ease;
       box-shadow: var(--shadow-md);
-      z-index: 102;
    }
 
    &:hover::before {
@@ -148,9 +180,12 @@
    }
 
    &:hover {
-      background: var(--surface-color);
+      background: linear-gradient(180deg, #2a1810 0%, #1a1008 100%);
       border-color: var(--accent-primary);
       color: var(--accent-primary);
+      box-shadow:
+         inset 0 0 0 1px rgba(255, 122, 26, 0.3),
+         2px 0 14px var(--accent-glow-soft);
    }
 
    & svg {
@@ -163,22 +198,25 @@
    }
 }
 
-/* ===== Painel de Estatísticas (slider lateral) ===== */
+/* === Painel de Estatísticas (drawer lateral) === */
 .stats-panel {
    position: fixed;
    top: 5.5rem;
    left: 0;
    transform: translateX(-100%);
-   background: var(--bg-secondary);
-   border: 1px solid var(--border-light);
+   background:
+      var(--texture-brushed),
+      linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+   border: 1px solid var(--border-cut);
    border-left: none;
-   border-radius: 0 0 var(--radius-lg) 0;
-   padding: 0;
+   border-radius: 0 0 var(--radius-md) 0;
    width: 280px;
    max-width: 90vw;
-   box-shadow: var(--shadow-lg);
+   box-shadow:
+      inset 0 0 0 1px var(--border-color),
+      var(--shadow-lg);
    z-index: 100;
-   transition: transform 0.3s ease;
+   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.3, 1);
 
    &.open {
       transform: translateX(0);
@@ -186,23 +224,36 @@
 
    & .stats-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid var(--border-light);
+      gap: 0.5rem;
+      padding: 0.875rem 1.125rem;
+      border-bottom: 1px solid var(--border-cut);
+      position: relative;
 
       & h3 {
-         font-size: 0.8125rem;
+         font-family: var(--font-display);
+         font-size: 0.75rem;
          font-weight: 700;
-         color: var(--text-primary);
+         color: var(--accent-primary);
          text-transform: uppercase;
-         letter-spacing: 0.08em;
+         letter-spacing: 0.22em;
+         text-shadow: 0 0 6px var(--accent-glow-soft);
          margin: 0;
+      }
+
+      &::after {
+         content: '';
+         position: absolute;
+         bottom: -1px;
+         left: 0;
+         width: 32px;
+         height: 1px;
+         background: var(--accent-primary);
       }
    }
 
    & .stats-content {
-      padding: 1.25rem;
+      padding: 1rem 1.125rem;
    }
 
    & .stats-item {
@@ -210,47 +261,59 @@
       justify-content: space-between;
       align-items: center;
       padding: 0.625rem 0;
-      border-bottom: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-color);
 
       &:last-of-type {
          border-bottom: none;
       }
 
       & .stats-label {
-         font-size: 0.75rem;
+         font-family: var(--font-mono);
+         font-size: 0.5625rem;
          color: var(--text-secondary);
-         font-weight: 400;
+         font-weight: 500;
+         text-transform: uppercase;
+         letter-spacing: 0.12em;
       }
 
       & .stats-value {
-         font-size: 0.875rem;
+         font-family: var(--font-mono);
+         font-size: 0.75rem;
          color: var(--accent-primary);
-         font-weight: 700;
-         font-family: 'Inter', monospace;
+         font-weight: 800;
+         text-shadow: 0 0 6px var(--accent-glow-soft);
       }
    }
 
    & .reset-stats-btn {
       width: 100%;
-      margin-top: 1.25rem;
+      margin-top: 1rem;
       padding: 0.625rem;
-      background: var(--bg-tertiary);
+      background: linear-gradient(180deg, var(--bg-tertiary), var(--bg-primary));
       border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm);
-      color: var(--text-primary);
-      font-size: 0.75rem;
-      font-weight: 600;
+      border-radius: var(--radius-xs);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
       cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease;
+      transition: all 0.18s ease;
+      box-shadow:
+         inset 0 1px 0 rgba(255, 255, 255, 0.05),
+         inset 0 -1px 2px rgba(0, 0, 0, 0.4);
 
       &:hover {
-         background: var(--surface-color);
+         background: linear-gradient(180deg, var(--danger), #a01627);
          border-color: var(--danger);
-         color: var(--danger);
+         color: #fff;
+         box-shadow: 0 0 10px var(--danger-glow), inset 0 1px 0 rgba(255, 255, 255, 0.2);
       }
 
       &:active {
-         transform: scale(0.98);
+         transform: translateY(1px);
+         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
       }
    }
 
@@ -260,13 +323,14 @@
    }
 }
 
-/* ===== Container de áudio (escondido) ===== */
+/* === Container de áudio === */
 .audio-container {
    display: none;
 }
 
-/* ===== Breakpoints responsivos - panels ===== */
+/* === Breakpoints === */
 @media (max-width: 900px) {
+
    .record-toggle,
    .stats-toggle {
       top: 5.5rem;
@@ -275,26 +339,23 @@
    }
 
    .record-toggle::before {
-      font-size: 0.6875rem;
-      padding: 0.375rem 0.625rem;
+      font-size: 0.5625rem;
+      padding: 0.3125rem 0.625rem 0.3125rem 0.75rem;
    }
 }
 
 @media (max-width: 768px) {
+
    .record-toggle,
    .stats-toggle {
       top: 5.5rem;
       width: 36px;
       height: 36px;
    }
-
-   .record-toggle::before {
-      font-size: 0.6875rem;
-      padding: 0.375rem 0.625rem;
-   }
 }
 
 @media (max-width: 640px) {
+
    .record-toggle,
    .stats-toggle {
       display: none;

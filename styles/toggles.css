@@ -90,6 +90,13 @@
       inset 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* Quando o metrônomo está ativo, o input colado embaixo forma um único bloco */
+.metronome-toggle.active {
+   border-bottom-left-radius: 0;
+   border-bottom-right-radius: 0;
+   margin-bottom: 0;
+}
+
 .loop-toggle.active {
    background:
       var(--texture-brushed),
@@ -146,12 +153,13 @@
    }
 }
 
-/* === Input inline do metrônomo === */
+/* === Input inline do metrônomo (colado ao botão metrônomo ativo) === */
 .metronome-bpm-inline {
    display: none;
-   width: 100%;
-   justify-content: center;
-   margin-top: -0.5rem;
+   position: relative;
+   width: 64px;
+   margin-top: calc(-1 * 0.75rem);
+   z-index: 99;
 
    &.visible {
       display: flex;
@@ -161,9 +169,10 @@
 .metronome-bpm-inline-input {
    width: 100%;
    padding: 0.375rem 0;
+   box-sizing: border-box;
    background:
       linear-gradient(180deg, #06150a 0%, #030c06 100%);
-   border: 1px solid rgba(89, 255, 154, 0.2);
+   border: 1px solid rgba(89, 255, 154, 0.25);
    border-top: none;
    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
    color: var(--led-green);
@@ -174,12 +183,17 @@
    outline: none;
    text-shadow: 0 0 6px var(--led-green-soft);
    transition: border-color 0.18s ease, color 0.18s ease;
-   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
+   box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.7),
+      0 2px 6px rgba(0, 0, 0, 0.4);
 
    &:focus {
       border-color: var(--led-green);
       color: #aaffcc;
       text-shadow: 0 0 10px var(--led-green-soft);
+      box-shadow:
+         inset 0 2px 4px rgba(0, 0, 0, 0.7),
+         0 0 8px var(--led-green-soft);
    }
 
    &::-webkit-outer-spin-button,
@@ -199,6 +213,11 @@
       font-size: 0.4375rem;
    }
 
+   .metronome-bpm-inline {
+      width: 58px;
+      margin-top: calc(-1 * 0.75rem);
+   }
+
    .toggle-led {
       width: 8px;
       height: 8px;
@@ -215,5 +234,10 @@
    .metronome-toggle {
       width: 54px;
       height: 58px;
+   }
+
+   .metronome-bpm-inline {
+      width: 54px;
+      margin-top: calc(-1 * 0.75rem);
    }
 }

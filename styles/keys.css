@@ -373,3 +373,9 @@
       letter-spacing: 0.14em;
    }
 }
+
+@media (max-width: 360px) {
+   .key-voice {
+      display: none;
+   }
+}

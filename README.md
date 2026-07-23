@@ -2,6 +2,8 @@
 
 Drum kit para criação e reprodução de batidas, permitindo tocar pads, compor sequências, agendar notas no tempo, gravar a composição automaticamente e editar nota por nota.
 
+![Preview do Drum Kit](img/drum-kit-preview.png)
+
 ---
 
 ## Funcionalidades
@@ -20,7 +22,7 @@ Drum kit para criação e reprodução de batidas, permitindo tocar pads, compor
 | `C`   | FX      | `sounds/keyc.wav` |
 
 - Toca pelo **teclado** ou **clicando**.
-- O pad afunda e brilha em âmbar quando aperta.
+- O pad afunda e brilha quando aperta.
 
 ### Controles Laterais
 - **VOLUME** - slider vertical + display.

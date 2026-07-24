@@ -1,8 +1,3 @@
-/* =====================================================
-   TOGGLES — botões táteis com LED indicador
-   Loop (laranja) · Metrônomo (verde) · estilo push-button
-   ===================================================== */
-
 .loop-toggle,
 .metronome-toggle {
    display: flex;
@@ -54,7 +49,6 @@
    text-align: center;
 }
 
-/* === Hover — boto recebendo incidência de luz === */
 .loop-toggle:hover,
 .metronome-toggle:hover {
    background:
@@ -81,7 +75,6 @@
       0 0 6px var(--led-green-soft);
 }
 
-/* === Estado ativo — LED aceso e botão apertado === */
 .loop-toggle:active,
 .metronome-toggle:active {
    transform: translateY(1px);
@@ -90,7 +83,6 @@
       inset 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Quando o metrônomo está ativo, o input colado embaixo forma um único bloco */
 .metronome-toggle.active {
    border-bottom-left-radius: 0;
    border-bottom-right-radius: 0;
@@ -153,7 +145,6 @@
    }
 }
 
-/* === Input inline do metrônomo (colado ao botão metrônomo ativo) === */
 .metronome-bpm-inline {
    display: none;
    position: relative;
@@ -203,7 +194,6 @@
    }
 }
 
-/* === Breakpoints === */
 @media (max-width: 900px) {
 
    .loop-toggle,

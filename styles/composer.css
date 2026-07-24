@@ -1,8 +1,3 @@
-/* =====================================================
-   COMPOSER — Display de sequenciador retroiluminado
-   Visor LCD âmbar + parafusos + trilha de transporte
-   ===================================================== */
-
 .composer {
    position: relative;
    display: flex;
@@ -24,7 +19,6 @@
    margin-top: 1rem;
 }
 
-/* Moldura com parafusos do visor */
 .composer-screen-bezel {
    position: absolute;
    inset: 0;
@@ -75,7 +69,6 @@
    right: 6px;
 }
 
-/* === Header do visor === */
 .composer-header {
    display: flex;
    align-items: center;
@@ -185,7 +178,6 @@
    }
 }
 
-/* === Trilha do sequenciador (visor LCD âmbar) === */
 .composer-timeline {
    padding: 0.125rem 0;
 }
@@ -206,7 +198,6 @@
       inset 0 2px 6px rgba(0, 0, 0, 0.85),
       inset 0 0 0 1px rgba(255, 122, 26, 0.05);
 
-   /* Efeito LCD scanlines */
    &::before {
       content: '';
       position: absolute;
@@ -263,7 +254,6 @@
    transform-origin: left center;
 }
 
-/* === Notas — pads em miniatura no visor === */
 .timeline-note {
    width: 24px;
    height: 32px;
@@ -340,7 +330,6 @@
    }
 }
 
-/* === Bloco de transporte inferior === */
 .transport {
    display: flex;
    flex-direction: column;
@@ -422,7 +411,6 @@
    }
 }
 
-/* Botões embutidos (random / reverse) */
 .input-wrapper #randomBtn,
 .input-wrapper #reverseBtn {
    flex-shrink: 0;
@@ -492,7 +480,6 @@
    border-width: 0;
 }
 
-/* === Botões de transporte Play/Stop === */
 .transport-buttons {
    display: flex;
    gap: 0.5rem;
@@ -611,7 +598,6 @@
    }
 }
 
-/* === Breakpoints === */
 @media (max-width: 768px) {
    .composer {
       padding: 0.875rem 0.875rem 1rem;

@@ -1,6 +1,3 @@
-/* === Workspace — arranjo do chassis === */
-/* Controls + pads integrados num único bloco metálico */
-
 .workspace {
    display: flex;
    align-items: stretch;
@@ -34,7 +31,6 @@
    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4), transparent);
 }
 
-/* === Pads — bloco de hardware principal === */
 .keys {
    display: grid;
    grid-template-columns: repeat(3, 1fr);
@@ -55,7 +51,6 @@
    position: relative;
 }
 
-/* Parafusos nos cantos do bloco de pads */
 .keys::before,
 .keys::after {
    content: '';
@@ -81,7 +76,6 @@
    right: 8px;
 }
 
-/* === Pads individuais — gomas de silicone com profundidade === */
 .keys .key {
    aspect-ratio: 1;
    min-width: 0;
@@ -105,20 +99,15 @@
       background 0.16s ease,
       filter 0.16s ease;
    box-shadow:
-      /* sombra externa (elevado) */
       0 4px 10px rgba(0, 0, 0, 0.7),
       0 1px 2px rgba(0, 0, 0, 0.6),
-      /* borda metálica embutida */
       0 0 0 1px var(--border-cut),
       inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-      /* reflexo superior (luz lateral) */
       inset 0 2px 2px rgba(255, 255, 255, 0.08),
-      /* profundidade inferior */
       inset 0 -4px 10px rgba(0, 0, 0, 0.55),
       inset 0 -1px 1px rgba(0, 0, 0, 0.4);
 }
 
-/* Reflexo no topo do pad (luz alta do estúdio) */
 .keys .key::before {
    content: '';
    position: absolute;
@@ -134,7 +123,6 @@
    transition: opacity 0.16s ease;
 }
 
-/* Glow interno buffer (camada interna do pad) */
 .keys .key::after {
    content: '';
    position: absolute;
@@ -192,7 +180,6 @@
    transition: all 0.14s ease;
 }
 
-/* === Hover — leve iluminação lateral === */
 .keys .key:hover {
    background:
       radial-gradient(circle at 50% 22%, #32373f 0%, #232831 40%, #1c1f26 100%);
@@ -221,7 +208,6 @@
    }
 }
 
-/* === Estado ativo — pressão / afundamento / glow de energia === */
 .keys .key:active,
 .keys .key.playing {
    background:
@@ -229,13 +215,10 @@
    transform: translateY(2px) scale(0.97);
    animation: padHit 0.16s ease-out;
    box-shadow:
-      /* afundado - sombra externa reduzida */
       0 1px 3px rgba(0, 0, 0, 0.5),
       0 0 0 1px var(--accent-deep),
-      /* glow externo pulsante */
       0 0 22px var(--accent-glow),
       0 0 40px var(--accent-glow-soft),
-      /* brilho interno do LED por dentro do pad */
       inset 0 2px 6px rgba(255, 200, 130, 0.5),
       inset 0 -3px 8px rgba(120, 50, 0, 0.8),
       inset 0 0 0 1px rgba(255, 220, 180, 0.25);
@@ -286,7 +269,6 @@
    }
 }
 
-/* Foco acessível — anel sutil mas visível */
 .keys .key:focus-visible {
    outline: none;
    box-shadow:
@@ -297,7 +279,6 @@
       inset 0 -4px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* === Breakpoints === */
 @media (max-width: 900px) {
    .workspace {
       gap: 0.875rem;

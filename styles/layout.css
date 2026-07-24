@@ -12,7 +12,6 @@ body {
    position: relative;
 }
 
-/* Linha de costura superior — efeito de painel montado em rack */
 body::before {
    content: '';
    position: fixed;
@@ -24,7 +23,6 @@ body::before {
    pointer-events: none;
 }
 
-/* === Header — placa de identidade do equipamento === */
 header {
    position: relative;
    padding: 1rem 1.25rem;
@@ -171,7 +169,6 @@ header {
    }
 }
 
-/* === Main — área montada do equipamento === */
 main {
    flex: 1;
    display: flex;
@@ -182,7 +179,6 @@ main {
    position: relative;
 }
 
-/* === Instructions — pôster de instruções com LED === */
 .instructions {
    display: flex;
    align-items: center;
@@ -238,7 +234,6 @@ main {
    }
 }
 
-/* === Footer === */
 footer {
    text-align: center;
    padding: 0.875rem 1rem 1.125rem;

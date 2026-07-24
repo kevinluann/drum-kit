@@ -1,9 +1,3 @@
-/* =====================================================
-   CONTROLES — Sliders verticais em trilho
-   Volume / BPM — estilo mesa de som industrial (âmbar LED)
-   ===================================================== */
-
-/* === Caixa do módulo (borda metálica embutida) === */
 .volume-control,
 .bpm-control {
    position: relative;
@@ -25,7 +19,6 @@
    height: 224px;
 }
 
-/* === Readout (display de valor) === */
 .bpm-display,
 .control-readout {
    display: flex;
@@ -85,7 +78,6 @@
    z-index: 1;
 }
 
-/* === Trilho vertical (slider rotacionado) === */
 .slider-rail {
    flex: 1;
    display: flex;
@@ -96,7 +88,6 @@
    position: relative;
 }
 
-/* Linhas de escala ao lado do trilho (ticks) */
 .slider-rail::before,
 .slider-rail::after {
    content: '';
@@ -123,7 +114,6 @@
    margin-left: 16px;
 }
 
-/* === Slider vertical rotacionado === */
 .slider-rail input[type="range"] {
    width: 150px;
    height: 6px;
@@ -174,7 +164,6 @@
    }
 }
 
-/* === Thumb — capsula metálica com LED âmbar === */
 .slider-rail input[type="range"] {
    &::-webkit-slider-thumb {
       -webkit-appearance: none;
@@ -239,7 +228,6 @@
    }
 }
 
-/* === Estado desativado (durante playback) === */
 .slider-rail input[type="range"]:disabled {
    opacity: 0.4;
    cursor: default;
@@ -269,7 +257,6 @@
    }
 }
 
-/* === Dropdown de presets BPM (sob o slider do BPM) === */
 .bpm-dropdown {
    visibility: hidden;
    position: absolute;
@@ -331,7 +318,6 @@
    }
 }
 
-/* === BPM value clicável (display interativo) === */
 .bpm-value.clickable {
    cursor: pointer;
    user-select: none;
@@ -358,7 +344,6 @@
    }
 }
 
-/* === Breakpoints === */
 @media (max-width: 900px) {
 
    .volume-control,

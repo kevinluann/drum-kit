@@ -1,6 +1,8 @@
 # Drum Kit
 
-Drum kit para criação e reprodução de batidas, permitindo tocar pads, compor sequências, agendar notas no tempo, gravar a composição automaticamente e editar nota por nota.
+Drum kit para criação e reprodução de batidas, permitindo tocar pads, compor sequências, agendar notas no tempo, gravar a composição automaticamente e editar nota por nota. 
+
+Acesse o [Drum Kit aqui](https://kevinluann.github.io/drum-kit/).
 
 ![Preview do Drum Kit](img/drum-kit-preview.png)
 
